@@ -1,0 +1,14 @@
+extends typescript
+
+snippet sig "Insert SolidJS signal"
+	const [${1}, set_${1}] = createSignal(${2})
+snippet use_state "Insert React.useState"
+	const [${1}, set_${1}] = React.useState(${2})
+snippet use_callback "Insert React.useCallback"
+	const ${1} = React.useCallback(() => {
+	${2}
+	}, [])
+snippet vitest_jsdom "Insert JSDOM environment header"
+	/**
+	 * @vitest-environment jsdom
+	 */

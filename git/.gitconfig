@@ -1,0 +1,17 @@
+[alias]
+	co = checkout
+	cm = commit
+	st = status
+	br = branch
+[user]
+	email = pero@cling.com
+	name = Peter Romianowski
+[mergetool "nvim"]
+    cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
+[merge]
+    tool = nvim
+[mergetool]
+    prompt = false
+    keepBackup = false
+[init]
+	defaultBranch = main

@@ -1,0 +1,6 @@
+zsh/.zsh_gnu
+.DS_Store
+osx/karabiner/automatic_backups
+tmux/.tmux/plugins
+tmux/.tmux/resurrect
+nvim/plugin/packer_compiled.lua

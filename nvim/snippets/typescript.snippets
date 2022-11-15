@@ -1,0 +1,17 @@
+snippet mock "Mock a module"
+	vi.mock("${1}", async () => ({
+    	...(await vi.importActual<any>("${1}")),
+		${2}
+	}))
+
+snippet mock_ext "Mock a module (extended)"
+	vi.mock("${1}", () => {
+    	const mod = await vi.importActual<any>("${1}")
+		return {
+			...mod,
+			${2}
+	}})
+snippet deb "Insert debug console.log()"
+	console.log("\x1b[35mAAA${1}\x1b[0m",${2})
+snippet log "Insert console.log()"
+	console.log("${1}",${2})
