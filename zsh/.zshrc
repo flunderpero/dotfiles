@@ -112,10 +112,10 @@ source <(stern --completion=zsh)
 # Java and Android Studio
 export JAVA_HOME=$(/usr/libexec/java_home)
 export ANDROID_HOME=$HOME/Library/Android/sdk
-export PATH=$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
+export PATH="$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools"
 
 # Python
-pyenv global 3.9.10
+pyenv global 3.11.1
 eval "$(pyenv init -)"
 eval "$(pyenv init --path)"
 export PYTHONIOENCODING="utf8"
