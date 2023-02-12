@@ -29,4 +29,5 @@ if [ "$(uname -s)" = "Darwin" ] ; then
     source $dotfiles/install.nvim.sh
     source $dotfiles/install.dev.sh
     source $dotfiles/install.tmux.sh
+    source $dotfiles/install.rust.sh
 fi

@@ -127,6 +127,9 @@ export NVM_DIR="$HOME/.nvm"
     && . "$HOMEBREW_HOME/opt/nvm/etc/bash_completion.d/nvm"
 nvm use --silent 18
 
+# Rust
+export PATH="$PATH:$HOME/.cargo/bin"
+
 # Custom aliases
 alias top=htop
 alias vi="nvim"
