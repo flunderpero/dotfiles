@@ -8,6 +8,9 @@ if not cmp_nvim_lsp_status then
 	return
 end
 
+-- Populate the quickfix list with all LSP errors.
+vim.keymap.set("n", "<leader>ga", vim.diagnostic.setqflist)
+
 local on_attach = function(client, bufnr)
 	-- Mappings.
 	local opts = { silent = true, buffer = bufnr }
@@ -21,26 +24,46 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set("n", "gr", function()
 		vim.lsp.buf.references({ includeDeclaration = false })
 	end, opts)
-	vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
+	vim.keymap.set("n", "<leader>d", function()
+		vim.diagnostic.open_float({ source = true })
+	end, opts)
 	vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
 	vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 	vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, opts)
+	vim.keymap.set("n", "<leader>pr", vim.lsp.buf.format, opts)
 end
 
 local capabilities = cmp_nvim_lsp.default_capabilities()
 
 -- Servers that don't need any special configuration.
-for _, server in ipairs({ "html", "cssls", "yamlls", "pyright" }) do
+for _, server in ipairs({ "html", "yamlls", "pyright", "rust_analyzer" }) do
 	lspconfig[server].setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
 	})
 end
 
+lspconfig.cssls.setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+	settings = {
+		css = {
+			-- We have to disable validation because `cssls` complains about
+			-- the custom TailwindCSS rules.
+			validate = false,
+		},
+	},
+})
+
 lspconfig.tailwindcss.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
-	root_dir = lspconfig.util.root_pattern("tailwind.config.js", "postcss.config.js"),
+	root_dir = lspconfig.util.root_pattern(
+		"tailwind.config.js",
+		"tailwind.config.cjs",
+		"postcss.config.js",
+		"postcss.config.cjs"
+	),
 })
 
 local typescript_setup, typescript = pcall(require, "typescript")
@@ -60,9 +83,9 @@ typescript.setup({
 			vim.keymap.set("n", "<leader>oi", ":TypescriptOrganizeImports<CR>", opts)
 			vim.keymap.set("n", "<leader>ru", ":TypescriptRemoveUnused<CR>", opts)
 		end,
-        -- We would love to do the following, but tsserver dies on
-        -- our main (very large) project no matter the amount of RAM
-        -- we give it:
+		-- We would love to do the following, but tsserver dies on
+		-- our main (very large) project no matter the amount of RAM
+		-- we give it:
 		-- Make monorepos work, i.e. search up the project root
 		-- and don't stop at the first `tsconfig.json`.
 		-- root_dir = lspconfig.util.root_pattern(".git"),

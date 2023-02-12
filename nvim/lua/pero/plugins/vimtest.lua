@@ -1,4 +1,5 @@
-vim.g["test#strategy"] = "neovim"
+vim.g["test#strategy"] = "floaterm"
+vim.g["test#echo_command"] = 1
 
 vim.keymap.set("n", "<leader>tt", ":TestNearest<CR>", { silent = true })
 vim.keymap.set("n", "<leader>tT", ":TestNearest", { silent = true })
@@ -21,6 +22,14 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	callback = function()
 		vim.keymap.set("n", "<leader>tt", ":TestNearest -qq<CR>", { silent = true })
 		vim.keymap.set("n", "<leader>tf", ":TestFile -qq<CR>", { silent = true })
+	end,
+	group = group,
+})
+vim.api.nvim_create_autocmd("BufEnter", {
+	pattern = { "*.rs" },
+	callback = function()
+		vim.keymap.set("n", "<leader>tT", ":TestNearest -- --nocapture", { silent = true })
+		vim.keymap.set("n", "<leader>tF", ":TestFile -- --nocapture", { silent = true })
 	end,
 	group = group,
 })

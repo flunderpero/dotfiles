@@ -2,9 +2,6 @@ vim.g.mapleader = " "
 
 local map = vim.keymap.set
 
--- Quick escape to normal mode.
-map("i", "hh", "<ESC>")
-
 -- Reset search highlighting.
 map("n", "<leader><ESC>", ":nohl<CR>")
 

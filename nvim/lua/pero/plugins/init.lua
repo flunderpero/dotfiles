@@ -37,6 +37,7 @@ return packer.startup(function(use)
 	-- Essentials.
 	use("tpope/vim-surround")
 	use("tpope/vim-unimpaired")
+	use("tpope/vim-repeat")
 	use("nvim-lua/plenary.nvim") -- Lua functions used by many other plugins.
 	use({
 		"numToStr/Comment.nvim",
@@ -65,6 +66,9 @@ return packer.startup(function(use)
 	use("dcampos/nvim-snippy")
 	use("dcampos/cmp-snippy")
 
+	-- Rust
+	use("simrat39/rust-tools.nvim")
+
 	-- Git
 	use("lewis6991/gitsigns.nvim")
 	use("tpope/vim-fugitive")
@@ -88,6 +92,9 @@ return packer.startup(function(use)
 		run = ":TSUpdate",
 	})
 
+	-- Undo
+	use("mbbill/undotree")
+
 	-- Auto-close parens, quotes, and tags
 	use("windwp/nvim-autopairs")
 	use({ "windwp/nvim-ts-autotag", after = "nvim-treesitter" })
@@ -100,6 +107,9 @@ return packer.startup(function(use)
 
 	-- A floating terminal is way too handy.
 	use("voldikss/vim-floaterm")
+
+	-- Jump to where your eye sits.
+	use("ggandor/leap.nvim")
 
 	-- Bootstrap if packer.nvim had to be installed.
 	if packer_bootstrap then

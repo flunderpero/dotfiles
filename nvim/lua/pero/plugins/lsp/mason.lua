@@ -21,6 +21,7 @@ mason.setup()
 mason_lspconfig.setup({
 	ensure_installed = {
 		"tsserver",
+		"rust_analyzer",
 		"html",
 		"cssls",
 		"pyright",
@@ -34,7 +35,11 @@ mason_null_ls.setup({
 	ensure_installed = {
 		"prettier",
 		"stylua",
+		"taplo",
 		"yapf",
+		"pylint",
+		"mypy",
 		"eslint_d",
+        "cspell",
 	},
 })

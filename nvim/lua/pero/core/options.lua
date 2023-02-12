@@ -33,9 +33,6 @@ vim.opt.clipboard:append("unnamedplus")
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
--- Consider string-string as whole word.
-vim.opt.iskeyword:append("-")
-
 -- Enable to switch buffers even if they are dirty.
 vim.opt.hidden = true
 
