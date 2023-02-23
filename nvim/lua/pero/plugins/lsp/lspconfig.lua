@@ -8,6 +8,19 @@ if not cmp_nvim_lsp_status then
 	return
 end
 
+-- Global diagnostics settings - only highlight really important errors.
+vim.diagnostic.config({
+	underline = {
+		severity = { min = vim.diagnostic.severity.HINT },
+	},
+	virtual_text = {
+		severity = { min = vim.diagnostic.severity.WARN },
+	},
+	signs = {
+		severity = { min = vim.diagnostic.severity.WARN },
+	},
+})
+
 -- Populate the quickfix list with all LSP errors.
 vim.keymap.set("n", "<leader>ga", vim.diagnostic.setqflist)
 
@@ -27,8 +40,16 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set("n", "<leader>d", function()
 		vim.diagnostic.open_float({ source = true })
 	end, opts)
-	vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-	vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+	vim.keymap.set("n", "[d", function()
+		vim.diagnostic.goto_prev({
+			severity = { min = vim.diagnostic.severity.WARN },
+		})
+	end, opts)
+	vim.keymap.set("n", "]d", function()
+		vim.diagnostic.goto_next({
+			severity = { min = vim.diagnostic.severity.WARN },
+		})
+	end, opts)
 	vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, opts)
 	vim.keymap.set("n", "<leader>pr", vim.lsp.buf.format, opts)
 end
