@@ -3,6 +3,8 @@ if not status then
 	return
 end
 
+local action_state = require("telescope.actions.state")
+
 telescope.setup({
 	defaults = {
 		sorting_strategy = "ascending",
@@ -28,6 +30,24 @@ telescope.setup({
 			-- Use `rg`, search in dotfiles, and ignore .git.
 			find_command = { "rg", "--hidden", "--files", "--glob", "!.git" },
 		},
+		git_commits = {
+			mappings = {
+				i = {
+					["<CR>"] = function()
+						-- Open in Diffview.
+                        -- See https://github.com/sindrets/diffview.nvim/issues/279
+						local selected_entry = action_state.get_selected_entry()
+						local value = selected_entry.value
+						-- Close Telescope window properly prior to switching windows.
+						vim.api.nvim_win_close(0, true)
+						vim.cmd("stopinsert")
+						vim.schedule(function()
+							vim.cmd(("DiffviewOpen %s^!"):format(value))
+						end)
+					end,
+				},
+			},
+		},
 	},
 })
 
@@ -39,7 +59,6 @@ vim.keymap.set("n", "<leader>cr", ":Telescope lsp_references<CR>")
 vim.keymap.set("n", "<leader>n", ":Telescope find_files<CR>")
 vim.keymap.set("n", "<leader>f", ":Telescope live_grep<CR>")
 vim.keymap.set("n", "<leader>F", ":lua grep_prompt()<CR>")
-vim.keymap.set("n", "<leader>vs", ":Telescope git_status<CR>")
-vim.keymap.set("n", "<leader>vb", ":Telescope git_branches<CR>")
-vim.keymap.set("n", "<leader>vc", ":Telescope git_bcommits<CR>")
+vim.keymap.set("n", "<leader>gb", ":Telescope git_branches<CR>")
+vim.keymap.set("n", "<leader>hl", ":Telescope git_commits<CR>")
 vim.keymap.set("n", "<leader>b", ":Telescope oldfiles<CR>")
