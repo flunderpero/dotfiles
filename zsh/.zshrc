@@ -53,6 +53,8 @@ unalias gm
 # Make watch expand aliases.
 # https://unix.stackexchange.com/questions/25327/watch-command-alias-expansion
 alias watch='watch --color '
+# Fix kitty using its own TERM variable nobody knows about.
+alias ssh="kitty +kitten ssh"
 
 # Git aliases
 git config --global alias.co checkout
