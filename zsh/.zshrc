@@ -17,7 +17,7 @@ HIST_STAMPS="yyyy-mm-dd"
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS
 
-plugins=(git history-substring-search web-search zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git history-substring-search zsh-syntax-highlighting)
 
 source "$ZSH/oh-my-zsh.sh"
 autoload -Uz compinit && compinit
