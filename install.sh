@@ -23,8 +23,8 @@ ln -s $dotfiles/kitty ~/.config/
 rm -f ~/.gitconfig
 ln -s $dotfiles/git/.gitconfig ~/
 if [ "$(uname -s)" = "Darwin" ] ; then
-    rm -f ~/amethyst.yml
-    ln -s $dotfiles/osx/amethyst.yml ~/  
+    rm -f ~/.amethyst.yml
+    ln -s $dotfiles/osx/amethyst.yml ~/.amethyst.yml
     rm -f ~/.config/karabiner
     ln -s $dotfiles/osx/karabiner ~/.config/
     source $dotfiles/install.brew.sh

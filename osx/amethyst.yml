@@ -1,7 +1,7 @@
 layouts:
-    - 3column-left
     - fullscreen
     - two-pane
+    - 3column-left
 
 # Add "command" to the default mods
 mod1:
