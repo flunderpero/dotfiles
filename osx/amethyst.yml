@@ -1,0 +1,40 @@
+layouts:
+    - 3column-left
+    - fullscreen
+    - two-pane
+
+# Add "command" to the default mods
+mod1:
+    - option
+    - shift
+    - command
+    - control
+
+mouse-follows-focus: true
+focus-follows-mouse: false
+mouse-swaps-windows: true
+
+cycle-layout:
+  mod: mod1
+  key: c
+shrink-main:
+  mod: mod1
+  key: h 
+expand-main:
+  mod: mod1
+  key: t 
+focus-cw:
+  mod: mod1
+  key: n
+focus-ccw:
+  mod: mod1
+  key: d
+swap-main:
+  mod: mod1
+  key: g
+toggle-float:
+  mod: mod1
+  key: f
+relaunch-amethyst:
+  mod: mod1
+  key: r
