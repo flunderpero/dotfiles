@@ -9,6 +9,7 @@ telescope.setup({
 	defaults = {
 		sorting_strategy = "ascending",
 		layout_strategy = "center",
+		file_ignore_patterns = { ".yarn" },
 	},
 	pickers = {
 		live_grep = {
@@ -35,7 +36,7 @@ telescope.setup({
 				i = {
 					["<CR>"] = function()
 						-- Open in Diffview.
-                        -- See https://github.com/sindrets/diffview.nvim/issues/279
+						-- See https://github.com/sindrets/diffview.nvim/issues/279
 						local selected_entry = action_state.get_selected_entry()
 						local value = selected_entry.value
 						-- Close Telescope window properly prior to switching windows.
