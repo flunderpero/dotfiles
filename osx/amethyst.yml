@@ -1,4 +1,5 @@
 layouts:
+    - tall
     - fullscreen
     - two-pane
     - 3column-left
