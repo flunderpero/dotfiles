@@ -20,16 +20,16 @@ cycle-layout:
   key: c
 shrink-main:
   mod: mod1
-  key: h 
+  key: t 
 expand-main:
   mod: mod1
-  key: t 
+  key: n 
 focus-cw:
   mod: mod1
-  key: n
+  key: s
 focus-ccw:
   mod: mod1
-  key: d
+  key: h
 swap-main:
   mod: mod1
   key: g
