@@ -27,7 +27,7 @@ cmp.setup({
 		["<Tab>"] = cmp.mapping.confirm({
 			select = true,
 		}),
-		["<CR>"] = cmp.mapping.confirm({
+		["<Space>"] = cmp.mapping.confirm({
 			behavior = cmp.ConfirmBehavior.Replace,
 			select = true,
 		}),
