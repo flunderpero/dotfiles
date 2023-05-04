@@ -26,6 +26,9 @@ vim.opt.signcolumn = "yes"
 -- Allow backspace on indent, end of line or insert mode start position.
 vim.opt.backspace = "indent,eol,start"
 
+-- Don't treat dashes as part of a word.
+vim.opt.iskeyword:remove("-")
+
 -- Use system clipboard as default register.
 vim.opt.clipboard:append("unnamedplus")
 
