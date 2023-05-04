@@ -5,6 +5,7 @@ end
 
 autopairs.setup({
 	check_ts = true,
+    disable_in_macro = true,
 	ts_config = {
 		lua = { "string" },
 		javascript = { "template_string" },
