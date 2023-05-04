@@ -24,10 +24,10 @@ cmp.setup({
 			i = cmp.mapping.abort(),
 			c = cmp.mapping.close(),
 		}),
-		["<Tab>"] = cmp.mapping.confirm({
+		["<C-u>"] = cmp.mapping.confirm({
 			select = true,
 		}),
-		["<Space>"] = cmp.mapping.confirm({
+		["<Tab>"] = cmp.mapping.confirm({
 			behavior = cmp.ConfirmBehavior.Replace,
 			select = true,
 		}),
