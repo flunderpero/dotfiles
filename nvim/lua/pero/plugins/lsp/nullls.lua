@@ -9,8 +9,10 @@ local formatting = null_ls.builtins.formatting
 local diagnostics = null_ls.builtins.diagnostics
 local code_actions = null_ls.builtins.code_actions
 local command_resolver = require("null-ls.helpers.command_resolver")
+local utils = require("null-ls.utils")
 
 null_ls.setup({
+	root_dir = utils.root_pattern(".git"),
 	sources = {
 		formatting.prettier,
 		formatting.taplo,
