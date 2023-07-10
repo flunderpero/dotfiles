@@ -18,6 +18,7 @@ null_ls.setup({
 		formatting.taplo,
 		formatting.stylua,
 		formatting.yapf,
+		formatting.stylelint,
 		-- We can use `eslint_d` if we don't use Yarn PnP.
 		diagnostics.eslint_d.with({
 			condition = function(utils)
@@ -45,6 +46,7 @@ null_ls.setup({
 				diagnostic.severity = vim.diagnostic.severity.HINT
 			end,
 		}),
+		diagnostics.stylelint,
 		code_actions.cspell,
 	},
 	on_attach = function(_, bufnr)

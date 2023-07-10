@@ -41,5 +41,6 @@ mason_null_ls.setup({
 		"mypy",
 		"eslint_d",
         "cspell",
+        "stylelint",
 	},
 })
