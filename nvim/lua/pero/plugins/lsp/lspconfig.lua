@@ -57,7 +57,7 @@ end
 local capabilities = cmp_nvim_lsp.default_capabilities()
 
 -- Servers that don't need any special configuration.
-for _, server in ipairs({ "html", "yamlls", "pyright", "rust_analyzer" }) do
+for _, server in ipairs({ "html", "yamlls", "pyright" }) do
 	lspconfig[server].setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
@@ -70,7 +70,7 @@ lspconfig.cssls.setup({
 	settings = {
 		css = {
 			-- We have to disable validation because `cssls` complains about
-			-- the custom TailwindCSS rules.
+			-- nested CSS rules (which are valid) and custom TailwindCSS rules.
 			validate = false,
 		},
 	},
@@ -113,6 +113,34 @@ typescript.setup({
 		init_options = {
 			-- Node is the new Java - just dump RAM on it.
 			maxTsServerMemory = 8000,
+		},
+	},
+})
+local rust_tools_status, rust_tools = pcall(require, "rust-tools")
+if not rust_tools_status then
+	return
+end
+rust_tools.setup({
+	tools = {
+		runnables = {
+			use_telescope = true,
+		},
+		inlay_hints = {
+			auto = true,
+			show_parameter_hints = false,
+			parameter_hints_prefix = "",
+			other_hints_prefix = "",
+		},
+	},
+
+	server = {
+		on_attach = on_attach,
+		settings = {
+			["rust-analyzer"] = {
+				checkOnSave = {
+					command = "clippy",
+				},
+			},
 		},
 	},
 })
