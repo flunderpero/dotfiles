@@ -51,6 +51,12 @@ return packer.startup(function(use)
 	use("neovim/nvim-lspconfig")
 	use("jose-elias-alvarez/typescript.nvim")
 	use("jose-elias-alvarez/null-ls.nvim")
+	use({
+		"j-hui/fidget.nvim",
+		config = function()
+			require("fidget").setup()
+		end,
+	})
 
 	-- mason - manage LSP servers, linters, and formatters
 	use("williamboman/mason.nvim")
