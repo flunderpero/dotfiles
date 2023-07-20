@@ -121,13 +121,6 @@ return packer.startup(function(use)
 	-- AI will make use a good coder, eventually.
 	-- use("github/copilot.vim")
 	use({ "zbirenbaum/copilot.lua" })
-	use({
-		"zbirenbaum/copilot-cmp",
-		after = { "copilot.lua" },
-		config = function()
-			require("copilot_cmp").setup()
-		end,
-	})
 
 	-- Bootstrap if packer.nvim had to be installed.
 	if packer_bootstrap then
