@@ -92,6 +92,17 @@ return packer.startup(function(use)
 			{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
 		},
 	})
+	use({
+		"princejoogie/dir-telescope.nvim",
+		config = function()
+			require("dir-telescope").setup({
+				-- these are the default options set
+				hidden = true,
+				no_ignore = false,
+				show_preview = true,
+			})
+		end,
+	})
 
 	-- Treesitter
 	use({

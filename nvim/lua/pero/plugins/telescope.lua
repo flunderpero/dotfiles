@@ -54,12 +54,21 @@ telescope.setup({
 
 telescope.load_extension("fzf")
 
+-- Search in certain directories only.
+local dir_status, dir_telescope = pcall(require, "dir-telescope")
+if not dir_status then
+	return
+end
+dir_telescope.setup()
+telescope.load_extension("dir")
+
 -- Keymaps
 vim.keymap.set("n", "<leader>s", ":Telescope lsp_document_symbols ignore_symbols=variable<CR>")
 vim.keymap.set("n", "<leader>cr", ":Telescope lsp_references<CR>")
 vim.keymap.set("n", "<leader>n", ":Telescope find_files<CR>")
 vim.keymap.set("n", "<leader>f", ":Telescope live_grep<CR>")
-vim.keymap.set("n", "<leader>F", ":lua grep_prompt()<CR>")
+vim.keymap.set("n", "<leader>F", ":Telescope dir live_grep<CR>")
+vim.keymap.set("n", "<leader>N", ":Telescope dir find_files<CR>")
 vim.keymap.set("n", "<leader>gb", ":Telescope git_branches<CR>")
 vim.keymap.set("n", "<leader>hl", ":Telescope git_commits<CR>")
 vim.keymap.set("n", "<leader>b", ":Telescope oldfiles<CR>")
