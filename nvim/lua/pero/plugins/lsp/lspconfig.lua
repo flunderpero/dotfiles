@@ -134,11 +134,20 @@ rust_tools.setup({
 	},
 
 	server = {
-		on_attach = on_attach,
+		on_attach = function(client, bufnr)
+			on_attach(client, bufnr)
+			local opts = { silent = true, buffer = bufnr }
+			vim.keymap.set("n", "<leader>e", rust_tools.expand_macro.expand_macro, bufopts)
+			vim.keymap.set("n", "<leader>tt", rust_tools.runnables.runnables, opts)
+			vim.keymap.set("n", "<leader>tf", rust_tools.runnables.runnables, opts)
+		end,
 		settings = {
 			["rust-analyzer"] = {
 				checkOnSave = {
 					command = "clippy",
+				},
+				runnables = {
+					cargoExtraArgs = { "--", "--show-output" },
 				},
 			},
 		},
