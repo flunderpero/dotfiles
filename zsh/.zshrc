@@ -103,10 +103,11 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 # (https://gist.github.com/skyzyx/3438280b18e4f7c490db8a2a2ca0b9da)
 source $HOME/.dotfiles/zsh/.zsh_gnu
 
-# Google Cloud SDK autocompletion
+# Google Cloud SDK
 source "$HOME/src/google-cloud-sdk/path.zsh.inc"
 source "$HOME/src/google-cloud-sdk/completion.zsh.inc"
 source <(kubectl completion zsh)
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 # Stern autocompletion
 source <(stern --completion=zsh)
