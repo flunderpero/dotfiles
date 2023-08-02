@@ -22,8 +22,20 @@ treesitter.setup({
 		"bash",
 		"lua",
 		"vim",
+		"rust",
 		"dockerfile",
 		"gitignore",
 	},
 	auto_install = true,
+})
+
+vim.keymap.set("n", "ti", vim.treesitter.inspect_tree)
+vim.keymap.set("n", "th", ":TSHighlightCapturesUnderCursor<CR>")
+
+vim.api.nvim_create_autocmd("BufWrite", {
+	pattern = { "*.scm" },
+	callback = function()
+		require("nvim-treesitter.query").invalidate_query_cache()
+		vim.cmd("TSUpdate")
+	end,
 })
