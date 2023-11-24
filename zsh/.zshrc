@@ -130,6 +130,11 @@ export NVM_DIR="$HOME/.nvm"
     && . "$HOMEBREW_HOME/opt/nvm/etc/bash_completion.d/nvm"
 nvm use --silent 18
 
+# Bun
+[ -s "/Users/pero/.bun/_bun" ] && source "/Users/pero/.bun/_bun"
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
 # Rust
 export PATH="$PATH:$HOME/.cargo/bin"
 
