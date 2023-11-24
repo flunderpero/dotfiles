@@ -11,7 +11,12 @@ mod1:
     - command
     - control
 
-mouse-follows-focus: true
+mod2:
+    - control
+    - shift
+    - command
+
+mouse-follows-focus: false
 focus-follows-mouse: false
 mouse-swaps-windows: true
 
