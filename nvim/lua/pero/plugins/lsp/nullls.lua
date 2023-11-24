@@ -50,6 +50,16 @@ null_ls.setup({
 		code_actions.cspell,
 	},
 	on_attach = function(_, bufnr)
-		vim.keymap.set("n", "<leader>pr", vim.lsp.buf.format, { silent = true, buffer = bufnr })
+		vim.keymap.set("n", "<leader>pr", function()
+			vim.lsp.buf.format({
+				filter = function(client)
+					-- Never format with tsserver, we use prettier.
+					return client.name ~= "tsserver"
+				end,
+			})
+		end, {
+			silent = true,
+			buffer = bufnr,
+		})
 	end,
 })
