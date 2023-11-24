@@ -77,6 +77,9 @@ fi
 
 export LANG=en_US.UTF-8
 export SSH_KEY_PATH="~/.ssh/id_rsa"
+export HOMEBREW_HOME="/usr/local"
+[ -d "/opt/homebrew" ] && export HOMEBREW_HOME="/opt/homebrew"
+
 # We want to be very specific about our $PATH.
 PATH="$HOME/src/google-cloud-sdk/bin"
 PATH="$PATH:/usr/local/opt/openjdk/bin"
@@ -94,10 +97,8 @@ PATH="$PATH:/sbin"
 PATH="$PATH:$HOME/.krew/bin"
 
 # Homebrew
-export HOMEBREW_HOME="/usr/local"
-[ -d "/opt/homebrew" ] && export HOMEBREW_HOME="/opt/homebrew"
 eval "$($HOMEBREW_HOME/bin/brew shellenv)"
-PATH="$PATH:$HOMEBREW_HOME/bin"
+PATH="$HOMEBREW_HOME/opt/protobuf@3/bin:$PATH"
 export HOMEBREW_NO_AUTO_UPDATE=1
 # We want to use the GNU versions of most commands.
 # (https://gist.github.com/skyzyx/3438280b18e4f7c490db8a2a2ca0b9da)
