@@ -1,5 +1,4 @@
 require("pero.core.auto")
-require("pero.core.colorscheme")
 require("pero.core.git")
 require("pero.core.keymaps")
 require("pero.core.options")
@@ -26,4 +25,6 @@ require("pero.plugins.telescope")
 require("pero.plugins.treesitter")
 require("pero.plugins.treesitter")
 require("pero.plugins.vimtest")
+-- Colorscheme must be loaded after plugins, because the colorscheme is a plugin.
+require("pero.core.colorscheme")
 require("pero.dev.klar")

@@ -1,142 +1,114 @@
--- packer.nvim
+-- lazy.nvim
 -- The configuration is copied straight from
--- https://github.com/wbthomason/packer.nvim
--- without any modification.
+-- https://github.com/folke/lazy.nvim without any modification.
 
--- Install packer.nvim itself if needed.
-local ensure_packer = function()
-	local fn = vim.fn
-	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-	if fn.empty(fn.glob(install_path)) > 0 then
-		fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-		vim.cmd([[packadd packer.nvim]])
-		return true
-	end
-	return false
-end
-local packer_bootstrap = ensure_packer()
-
-local status, packer = pcall(require, "packer")
-if not status then
-	print("Packer not found - skipping all plugins")
-	return
-end
-
--- Automatically sync plugins on save.
-vim.cmd([[
-    augroup packer_user_config
-        autocmd!
-        autocmd BufWritePost init.lua source <afile> | PackerCompile
-    augroup end
-]])
-
-return packer.startup(function(use)
-	-- Packer can manage itself.
-	use("wbthomason/packer.nvim")
-
-	-- Essentials.
-	use("tpope/vim-surround")
-	use("tpope/vim-unimpaired")
-	use("tpope/vim-repeat")
-	use("nvim-lua/plenary.nvim") -- Lua functions used by many other plugins.
-	use({
-		"numToStr/Comment.nvim",
-		config = function()
-			require("Comment").setup()
-		end,
+-- Install lazy.nvim itself if needed.
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable",
+		lazypath,
 	})
-	use("stevearc/dressing.nvim")
+end
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup({
+	-- Essentials.
+	"tpope/vim-surround",
+	"tpope/vim-unimpaired",
+	"tpope/vim-repeat",
+	-- Lua functions used by many other plugins.
+	"nvim-lua/plenary.nvim",
+	{
+		"numToStr/Comment.nvim",
+		init = function()
+            require("Comment").setup()
+        end,
+	},
+    -- Style UI elements like inputs.
+	"stevearc/dressing.nvim",
 
 	-- LSP
-	use("neovim/nvim-lspconfig")
-	use("jose-elias-alvarez/typescript.nvim")
-	use("jose-elias-alvarez/null-ls.nvim")
-	use({
+	"neovim/nvim-lspconfig",
+	"jose-elias-alvarez/typescript.nvim",
+	"jose-elias-alvarez/null-ls.nvim",
+	{
 		"j-hui/fidget.nvim",
-		config = function()
+		init = function()
 			require("fidget").setup()
 		end,
-	})
+	},
 
 	-- mason - manage LSP servers, linters, and formatters
-	use("williamboman/mason.nvim")
-	use("williamboman/mason-lspconfig.nvim")
-	use("jayp0521/mason-null-ls.nvim")
+	"williamboman/mason.nvim",
+	"williamboman/mason-lspconfig.nvim",
+	"jayp0521/mason-null-ls.nvim",
 
 	-- nvim-cmp and snippy - autocompletion and snippets
-	use("hrsh7th/nvim-cmp")
-	use("hrsh7th/cmp-nvim-lsp")
-	use("hrsh7th/cmp-buffer")
-	use("hrsh7th/cmp-path")
-	use("hrsh7th/cmp-nvim-lua")
-	use("dcampos/nvim-snippy")
-	use("dcampos/cmp-snippy")
+	"hrsh7th/nvim-cmp",
+	"hrsh7th/cmp-nvim-lsp",
+	"hrsh7th/cmp-buffer",
+	"hrsh7th/cmp-path",
+	"hrsh7th/cmp-nvim-lua",
+	"dcampos/nvim-snippy",
+	"dcampos/cmp-snippy",
 
 	-- Rust
-	use("simrat39/rust-tools.nvim")
+	"simrat39/rust-tools.nvim",
 
 	-- Git
-	use("lewis6991/gitsigns.nvim")
-	use("tpope/vim-fugitive")
-	use("sindrets/diffview.nvim")
+	"lewis6991/gitsigns.nvim",
+	"tpope/vim-fugitive",
+	"sindrets/diffview.nvim",
 
 	-- dirvish.vim - file manager
-	use("justinmk/vim-dirvish")
-	use("roginfarrer/vim-dirvish-dovish") -- Add commands like delete to dirvish buffers.
+	"justinmk/vim-dirvish",
+	-- Add commands like delete to dirvish buffers.
+	"roginfarrer/vim-dirvish-dovish",
 
 	-- Telescope - file searching and more.
-	use({
+	{
 		"nvim-telescope/telescope.nvim",
-		branch = "0.1.x",
-		requires = {
-			{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+		tag = "0.1.4",
+		dependencies = {
+			"nvim-telescope/telescope-fzf-native.nvim",
 		},
-	})
-	use({
-		"princejoogie/dir-telescope.nvim",
-		config = function()
-			require("dir-telescope").setup({
-				-- these are the default options set
-				hidden = true,
-				no_ignore = false,
-				show_preview = true,
-			})
-		end,
-	})
+	},
+	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+	"princejoogie/dir-telescope.nvim",
 
 	-- Treesitter
-	use({
+	{
 		"nvim-treesitter/nvim-treesitter",
-		run = ":TSUpdate",
-	})
-	use("nvim-treesitter/playground")
-	use("nvim-treesitter/nvim-treesitter-textobjects")
+		build = ":TSUpdate",
+	},
+	"nvim-treesitter/playground",
+	"nvim-treesitter/nvim-treesitter-textobjects",
 
 	-- Undo
-	use("mbbill/undotree")
+	"mbbill/undotree",
 
 	-- Auto-close parens, quotes, and tags
-	use("windwp/nvim-autopairs")
-	use({ "windwp/nvim-ts-autotag", after = "nvim-treesitter" })
+	"windwp/nvim-autopairs",
+	{ "windwp/nvim-ts-autotag", dependencies = { "nvim-treesitter" } },
 
 	-- Color scheme
-	use("EdenEast/nightfox.nvim")
+	"EdenEast/nightfox.nvim",
 
 	-- Testing
-	use("vim-test/vim-test")
+	"vim-test/vim-test",
 
 	-- A floating terminal is way too handy.
-	use("voldikss/vim-floaterm")
+	"voldikss/vim-floaterm",
 
 	-- Jump to where your eye sits.
-	use("ggandor/leap.nvim")
+	"ggandor/leap.nvim",
 
-	-- AI will make use a good coder, eventually.
-	-- use("github/copilot.vim")
-	use({ "zbirenbaum/copilot.lua" })
-
-	-- Bootstrap if packer.nvim had to be installed.
-	if packer_bootstrap then
-		require("packer").sync()
-	end
-end)
+	-- AI will make  a good coder, eventually.
+	-- ("github/copilot.vim")
+	"zbirenbaum/copilot.lua",
+})
