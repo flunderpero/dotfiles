@@ -114,7 +114,7 @@ export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 source <(stern --completion=zsh)
 
 # Java and Android Studio
-export JAVA_HOME=$(/usr/libexec/java_home)
+export JAVA_HOME="$HOMEBREW_HOME/opt/openjdk"
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH="$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools"
 

@@ -13,7 +13,7 @@ eval "$($HOMEBREW_HOME/bin/brew shellenv)"
 
 # Install essential brew packages.
 brew install cask git gnupg go graphicsmagick jq kustomize neovim nvm openjdk openssl \
-    protobuf pyenv redis stern watch wget yarn \
+    pyenv redis stern watch wget yarn \
     htop kitty keepassxc htop trash vimr amethyst
 
 # Use GNU commands where possible.
