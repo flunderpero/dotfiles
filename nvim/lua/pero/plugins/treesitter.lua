@@ -27,6 +27,28 @@ treesitter.setup({
 		"gitignore",
 	},
 	auto_install = true,
+    -- See https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+	textobjects = {
+		select = {
+			enable = true,
+			lookahead = true,
+			keymaps = {
+				-- You can use the capture groups defined in textobjects.scm
+				["af"] = "@function.outer",
+				["if"] = "@function.inner",
+				["ac"] = "@class.outer",
+				["ic"] = "@class.inner",
+                ["ab"] = "@block.outer",
+                ["ib"] = "@block.inner",
+			},
+			selection_modes = {
+				["@parameter.outer"] = "v", -- character-wise
+				["@block.inner"] = "v", -- character-wise
+				["@function.outer"] = "V", -- line-wise so we select a prefix like `export` with it.
+				["@class.outer"] = "V", -- line-wise so we select a prefix like `export` with it.
+			},
+		},
+	},
 })
 
 vim.keymap.set("n", "ti", vim.treesitter.inspect_tree)
