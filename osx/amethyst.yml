@@ -1,8 +1,6 @@
 layouts:
     - tall
     - fullscreen
-    - two-pane
-    - 3column-left
 
 # Add "command" to the default mods
 mod1:
@@ -19,6 +17,7 @@ mod2:
 mouse-follows-focus: false
 focus-follows-mouse: false
 mouse-swaps-windows: true
+mouse-resizes-windows: true
 
 cycle-layout:
   mod: mod1
