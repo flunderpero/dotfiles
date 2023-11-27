@@ -17,7 +17,7 @@ copilot.setup({
 		enabled = true,
 		auto_trigger = true,
 		keymap = {
-			accept = "<C-i>",
+			accept = "<C-y>",
 			accept_word = false,
 			accept_line = false,
 			next = "<C-j>",
