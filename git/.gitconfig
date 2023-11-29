@@ -5,13 +5,9 @@
 	br = branch
 [user]
 	email = pero@cling.com
-	name = Peter Romianowski
-[mergetool "nvim"]
-    cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
-[merge]
-    tool = nvim
-[mergetool]
-    prompt = false
-    keepBackup = false
+    name = Peter Romianowski
 [init]
-	defaultBranch = main
+    defaultBranch = main
+[rebase]
+	autosquash = true
+    autostash = true
