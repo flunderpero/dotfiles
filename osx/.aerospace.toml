@@ -1,0 +1,52 @@
+# Start AeroSpace at login
+start-at-login = true
+
+[mode.main.binding]
+
+# For all possible keys and modifiers see: https://github.com/nikitabobko/AeroSpace/blob/main/src/config/keysMap.swift
+# For all possible commands see: https://github.com/nikitabobko/AeroSpace/blob/main/docs/commands.md
+
+# See: https://github.com/nikitabobko/AeroSpace/blob/main/docs/commands.md#layout
+alt-ctrl-c = 'layout tiles horizontal accordion horizontal'
+
+# See: https://github.com/nikitabobko/AeroSpace/blob/main/docs/commands.md#focus
+alt-ctrl-h = 'focus left'
+alt-ctrl-s = 'focus right'
+
+# See: https://github.com/nikitabobko/AeroSpace/blob/main/docs/commands.md#move-through
+alt-ctrl-shift-h = 'move-through left'
+alt-ctrl-shift-s = 'move-through right'
+
+# See: https://github.com/nikitabobko/AeroSpace/blob/main/docs/commands.md#resize
+alt-ctrl-t = 'resize smart -100'
+alt-ctrl-n = 'resize smart +100'
+
+# See: https://github.com/nikitabobko/AeroSpace/blob/main/docs/commands.md#workspace
+alt-ctrl-m = 'workspace 0'
+alt-ctrl-w = 'workspace 1'
+alt-ctrl-v = 'workspace 2'
+alt-ctrl-z = 'workspace 3'
+alt-ctrl-4 = 'workspace 4'
+alt-ctrl-5 = 'workspace 5'
+alt-ctrl-6 = 'workspace 6'
+alt-ctrl-7 = 'workspace 7'
+alt-ctrl-8 = 'workspace 8'
+alt-ctrl-9 = 'workspace 9'
+
+# See: https://github.com/nikitabobko/AeroSpace/blob/main/docs/commands.md#move-node-to-workspace
+alt-ctrl-shift-m = 'move-node-to-workspace 0'
+alt-ctrl-shift-w = 'move-node-to-workspace 1'
+alt-ctrl-shift-v = 'move-node-to-workspace 2'
+alt-ctrl-shift-z = 'move-node-to-workspace 3'
+alt-ctrl-shift-4 = 'move-node-to-workspace 4'
+alt-ctrl-shift-5 = 'move-node-to-workspace 5'
+alt-ctrl-shift-6 = 'move-node-to-workspace 6'
+alt-ctrl-shift-7 = 'move-node-to-workspace 7'
+alt-ctrl-shift-8 = 'move-node-to-workspace 8'
+alt-ctrl-shift-9 = 'move-node-to-workspace 9'
+
+# Reload config
+alt-ctrl-shift-r = 'reload-config'
+
+# Toggle fullscreen
+alt-ctrl-f = 'fullscreen'
