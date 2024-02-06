@@ -38,6 +38,7 @@ alias dps="docker ps"
 alias k="kubectl"
 alias kg="k get"
 alias kgp="kg pods"
+alias kgpe='kgp -o=custom-columns="NAMESPACE:.metadata.namespace,NAME:.metadata.name,STATUS:.status.phase,RESTARTS:.status.containerStatuses[0].restartCount,AGE:.metadata.creationTimestamp,REQUESTS_CPU:.spec.containers[*].resources.requests.cpu,REQUESTS_MEM:.spec.containers[*].resources.requests.memory,LIMITS_CPU:.spec.containers[*].resources.limits.cpu,LIMITS_MEM:.spec.containers[*].resources.limits.memory"'
 alias kgpw="watch -n 1 kubectl get pods"
 alias kgn="kg nodes"
 alias kgnw="watch -n 1 kubectl get nodes"
