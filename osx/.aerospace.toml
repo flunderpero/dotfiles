@@ -7,7 +7,7 @@ start-at-login = true
 # For all possible commands see: https://github.com/nikitabobko/AeroSpace/blob/main/docs/commands.md
 
 # See: https://github.com/nikitabobko/AeroSpace/blob/main/docs/commands.md#layout
-alt-ctrl-c = 'layout tiles horizontal accordion horizontal'
+alt-ctrl-c = 'layout tiles horizontal accordion'
 
 # See: https://github.com/nikitabobko/AeroSpace/blob/main/docs/commands.md#focus
 alt-ctrl-h = 'focus left'
@@ -50,3 +50,6 @@ alt-ctrl-shift-r = 'reload-config'
 
 # Toggle fullscreen
 alt-ctrl-f = 'fullscreen'
+
+# Toggle float
+alt-ctrl-g = 'layout floating tiling'
