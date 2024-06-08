@@ -101,44 +101,43 @@ lspconfig.tailwindcss.setup({
 -- TypeScript
 lspconfig.tsserver.setup{
     root_patterns = { ".git" },
-		init_options = {
+    init_options = {
         maxTsServerMemory = 10000,
     }
 }
 
 local rust_tools_status, rust_tools = pcall(require, "rust-tools")
-if not rust_tools_status then
-	return
-end
-rust_tools.setup({
-	tools = {
-		runnables = {
-			use_telescope = true,
+if rust_tools_status then
+	rust_tools.setup({
+		tools = {
+			runnables = {
+				use_telescope = true,
+			},
+			inlay_hints = {
+				auto = true,
+				show_parameter_hints = false,
+				parameter_hints_prefix = "",
+				other_hints_prefix = "",
+			},
 		},
-		inlay_hints = {
-			auto = true,
-			show_parameter_hints = false,
-			parameter_hints_prefix = "",
-			other_hints_prefix = "",
-		},
-	},
 
-	server = {
-		on_attach = function(client, bufnr)
-			local opts = { silent = true, buffer = bufnr }
-			vim.keymap.set("n", "<leader>e", rust_tools.expand_macro.expand_macro, bufopts)
-			vim.keymap.set("n", "<leader>tt", rust_tools.runnables.runnables, opts)
-			vim.keymap.set("n", "<leader>tf", rust_tools.runnables.runnables, opts)
-		end,
-		settings = {
-			["rust-analyzer"] = {
-				checkOnSave = {
-					command = "clippy",
-				},
-				runnables = {
-					cargoExtraArgs = { "--", "--show-output" },
+		server = {
+			on_attach = function(client, bufnr)
+				local opts = { silent = true, buffer = bufnr }
+				vim.keymap.set("n", "<leader>e", rust_tools.expand_macro.expand_macro, bufopts)
+				vim.keymap.set("n", "<leader>tt", rust_tools.runnables.runnables, opts)
+				vim.keymap.set("n", "<leader>tf", rust_tools.runnables.runnables, opts)
+			end,
+			settings = {
+				["rust-analyzer"] = {
+					checkOnSave = {
+						command = "clippy",
+					},
+					runnables = {
+						cargoExtraArgs = { "--", "--show-output" },
+					},
 				},
 			},
 		},
-	},
-})
+	})
+end

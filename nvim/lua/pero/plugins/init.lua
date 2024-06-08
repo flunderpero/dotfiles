@@ -26,10 +26,10 @@ require("lazy").setup({
 	{
 		"numToStr/Comment.nvim",
 		init = function()
-            require("Comment").setup()
-        end,
+			require("Comment").setup()
+		end,
 	},
-    -- Style UI elements like inputs.
+	-- Style UI elements like inputs.
 	"stevearc/dressing.nvim",
 
 	-- LSP
