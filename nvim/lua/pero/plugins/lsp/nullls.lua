@@ -11,6 +11,14 @@ local code_actions = null_ls.builtins.code_actions
 local command_resolver = require("null-ls.helpers.command_resolver")
 local utils = require("null-ls.utils")
 
+local function has_eslint_config(utils)
+	return utils.root_has_file(".eslintrc.cjs")
+		or utils.root_has_file(".eslintrc.js")
+		or utils.root_has_file("eslint.config.mjs")
+		or utils.root_has_file("eslint.config.js")
+		or utils.root_has_file("eslint.config.cjs")
+end
+
 null_ls.setup({
 	root_dir = utils.root_pattern(".git"),
 	sources = {
@@ -21,8 +29,11 @@ null_ls.setup({
 		formatting.stylelint,
 		-- We can use `eslint_d` if we don't use Yarn PnP.
 		diagnostics.eslint_d.with({
+			env = {
+				ESLINT_USE_FLAT_CONFIG = "true",
+			},
 			condition = function(utils)
-				return utils.root_has_file(".eslintrc.cjs") and not utils.root_has_file(".pnp.cjs")
+				return has_eslint_config(utils) and not utils.root_has_file(".pnp.cjs")
 			end,
 		}),
 		-- We have to fall back to `eslint` if we use Yarn PnP. `eslint_d` is not able to resolve
@@ -30,13 +41,13 @@ null_ls.setup({
 		diagnostics.eslint.with({
 			dynamic_command = command_resolver.from_yarn_pnp(),
 			condition = function(utils)
-				return utils.root_has_file(".eslintrc.cjs") and utils.root_has_file(".pnp.cjs")
+				return has_eslint_config(utils) and utils.root_has_file(".pnp.cjs")
 			end,
 		}),
 		code_actions.eslint.with({
 			dynamic_command = command_resolver.from_yarn_pnp(),
 			condition = function(utils)
-				return utils.root_has_file(".eslintrc.cjs") and utils.root_has_file(".pnp.cjs")
+				return has_eslint_config(utils) and utils.root_has_file(".pnp.cjs")
 			end,
 		}),
 		diagnostics.pylint,

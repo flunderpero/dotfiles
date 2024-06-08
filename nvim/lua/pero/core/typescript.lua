@@ -12,7 +12,7 @@ function _G.pr_lint_eslint()
 	vim.api.nvim_command("wa")
 	vim.api.nvim_command("compiler eslint")
 	vim.api.nvim_command(
-		"set makeprg=yarn\\ run\\ eslint\\ --report-unused-disable-directives\\ -c\\ .eslintrc.cjs\\ "
+		"set makeprg=yarn\\ run\\ eslint\\ --report-unused-disable-directives\\ "
 			.. "--cache\\ --cache-location\\ .cache/eslint\\ --f\\ compact\\ ."
 	)
 	vim.api.nvim_command("make")
