@@ -97,34 +97,15 @@ lspconfig.tailwindcss.setup({
 	),
 })
 
-local typescript_setup, typescript = pcall(require, "typescript")
-if not typescript_setup then
-	return
-end
 
-typescript.setup({
-	server = {
-		capabilities = capabilities,
-		on_attach = function(client, bufnr)
-			local opts = { silent = true, buffer = bufnr }
-			vim.keymap.set("n", "<leader>g", vim.lsp.buf.implementation, bufopts)
-			vim.keymap.set("n", "<leader>G", ":TypescriptGoToSourceDefinition<CR>", opts)
-			vim.keymap.set("n", "<leader>rf", ":TypescriptRenameFile<CR>", opts)
-			vim.keymap.set("n", "<leader>oi", ":TypescriptOrganizeImports<CR>", opts)
-			vim.keymap.set("n", "<leader>ru", ":TypescriptRemoveUnused<CR>", opts)
-		end,
-		-- We would love to do the following, but tsserver dies on
-		-- our main (very large) project no matter the amount of RAM
-		-- we give it:
-		-- Make monorepos work, i.e. search up the project root
-		-- and don't stop at the first `tsconfig.json`.
-		-- root_dir = lspconfig.util.root_pattern(".git"),
+-- TypeScript
+lspconfig.tsserver.setup{
+    root_patterns = { ".git" },
 		init_options = {
-			-- Node is the new Java - just dump RAM on it.
-			maxTsServerMemory = 8000,
-		},
-	},
-})
+        maxTsServerMemory = 10000,
+    }
+}
+
 local rust_tools_status, rust_tools = pcall(require, "rust-tools")
 if not rust_tools_status then
 	return

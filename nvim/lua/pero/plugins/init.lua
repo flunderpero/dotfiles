@@ -34,7 +34,6 @@ require("lazy").setup({
 
 	-- LSP
 	"neovim/nvim-lspconfig",
-	"jose-elias-alvarez/typescript.nvim",
 	"jose-elias-alvarez/null-ls.nvim",
 	{
 		"j-hui/fidget.nvim",
@@ -108,7 +107,7 @@ require("lazy").setup({
 	-- Jump to where your eye sits.
 	"ggandor/leap.nvim",
 
-	-- AI will make  a good coder, eventually.
+	-- AI will make me a good coder, eventually.
 	-- ("github/copilot.vim")
 	"zbirenbaum/copilot.lua",
 })
