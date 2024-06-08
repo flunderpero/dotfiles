@@ -54,7 +54,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
 		vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
 		vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-		vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+		vim.keymap.set("n", "<leader>ca", function()
+			vim.lsp.buf.code_action({filter = function (action)
+                -- Remove the pesky "Move to new file" action.
+                return action.kind ~= "refactor.extract"
+            end})
+		end, opts)
 		vim.keymap.set("n", "gr", function()
 			vim.lsp.buf.references({ includeDeclaration = false })
 		end, opts)
