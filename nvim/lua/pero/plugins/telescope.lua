@@ -53,6 +53,7 @@ telescope.setup({
 })
 
 telescope.load_extension("fzf")
+telescope.load_extension("smart_open")
 
 -- Search in certain directories only.
 local dir_status, dir_telescope = pcall(require, "dir-telescope")
@@ -72,4 +73,4 @@ vim.keymap.set("n", "<leader>f", ":Telescope live_grep<CR>")
 vim.keymap.set("n", "<leader>F", ":Telescope dir live_grep<CR>")
 vim.keymap.set("n", "<leader>N", ":Telescope dir find_files<CR>")
 vim.keymap.set("n", "<leader>hl", ":Telescope git_commits<CR>")
-vim.keymap.set("n", "<leader>b", ":Telescope oldfiles cwd_only=1<CR>")
+vim.keymap.set("n", "<leader>b", ":lua require('telescope').extensions.smart_open.smart_open{cwd_only = true, filename_first = false}<CR>")

@@ -81,7 +81,13 @@ require("lazy").setup({
 	},
 	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 	"princejoogie/dir-telescope.nvim",
-
+	{
+		"danielfalk/smart-open.nvim",
+		branch = "0.2.x",
+		dependencies = {
+			"kkharji/sqlite.lua",
+		},
+	},
 	-- Treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
