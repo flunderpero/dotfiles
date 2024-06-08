@@ -72,7 +72,9 @@ require("lazy").setup({
 	-- Telescope - file searching and more.
 	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.4",
+        -- Using master for now because of a bug in 0.1.6: 
+        -- https://github.com/nvim-telescope/telescope.nvim/issues/3070
+		-- tag = "0.1.6",
 		dependencies = {
 			"nvim-telescope/telescope-fzf-native.nvim",
 		},
