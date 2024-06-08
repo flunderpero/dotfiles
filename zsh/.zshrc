@@ -129,7 +129,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$HOMEBREW_HOME/opt/nvm/nvm.sh" ] && . "$HOMEBREW_HOME/opt/nvm/nvm.sh"
 [ -s "$HOMEBREW_HOME/opt/nvm/etc/bash_completion.d/nvm" ] \
     && . "$HOMEBREW_HOME/opt/nvm/etc/bash_completion.d/nvm"
-nvm use --silent 18
+nvm use --silent 22
 
 # Bun
 [ -s "/Users/pero/.bun/_bun" ] && source "/Users/pero/.bun/_bun"
