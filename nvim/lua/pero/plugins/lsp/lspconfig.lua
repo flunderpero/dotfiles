@@ -97,6 +97,10 @@ lspconfig.tailwindcss.setup({
 	),
 })
 
+-- OpenSCAD
+vim.api.nvim_command("autocmd BufRead,BufNewFile *.scad set filetype=openscad")
+vim.api.nvim_command("autocmd FileType openscad setlocal commentstring=//\\ %s")
+lspconfig.openscad_lsp.setup({})
 
 -- TypeScript
 lspconfig.tsserver.setup{

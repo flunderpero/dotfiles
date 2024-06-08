@@ -26,6 +26,7 @@ mason_lspconfig.setup({
 		"pyright",
 		"yamlls",
 		"tailwindcss",
+        "openscad_lsp",
 		"lua_ls",
 	},
 })
