@@ -49,6 +49,7 @@ alias ffprobe="ffprobe -v fatal -print_format json -show_format -show_streams"
 # Ignore invalid lines in JSON.
 alias jqi="jq -R 'fromjson?' -S"
 alias jq="jq -S"
+alias pgrep="pgrep -f -l"
 # The alias 'gm' for 'git merge' conflicts with GraphicsMagick.
 unalias gm
 # Make watch expand aliases.
