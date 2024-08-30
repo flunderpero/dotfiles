@@ -86,8 +86,8 @@ require("lazy").setup({
 	-- Telescope - file searching and more.
 	{
 		"nvim-telescope/telescope.nvim",
-        -- Using master for now because of a bug in 0.1.6: 
-        -- https://github.com/nvim-telescope/telescope.nvim/issues/3070
+		-- Using master for now because of a bug in 0.1.6:
+		-- https://github.com/nvim-telescope/telescope.nvim/issues/3070
 		-- tag = "0.1.6",
 		dependencies = {
 			"nvim-telescope/telescope-fzf-native.nvim",
@@ -121,7 +121,14 @@ require("lazy").setup({
 	"EdenEast/nightfox.nvim",
 
 	-- Testing
-	"vim-test/vim-test",
+	{
+		"quolpr/quicktest.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"MunifTanjim/nui.nvim",
+			"m00qek/baleia.nvim",
+		},
+	},
 
 	-- A floating terminal is way too handy.
 	"voldikss/vim-floaterm",

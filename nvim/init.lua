@@ -24,7 +24,7 @@ require("pero.plugins.snippy")
 require("pero.plugins.telescope")
 require("pero.plugins.treesitter")
 require("pero.plugins.treesitter")
-require("pero.plugins.vimtest")
+require("pero.plugins.quicktest")
 -- Colorscheme must be loaded after plugins, because the colorscheme is a plugin.
 require("pero.core.colorscheme")
 require("pero.dev.klar")
