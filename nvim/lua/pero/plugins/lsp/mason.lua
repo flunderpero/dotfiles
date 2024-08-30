@@ -28,6 +28,7 @@ mason_lspconfig.setup({
 		"tailwindcss",
         "openscad_lsp",
 		"lua_ls",
+        "gopls"
 	},
 })
 

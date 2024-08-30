@@ -41,6 +41,20 @@ require("lazy").setup({
 			require("fidget").setup()
 		end,
 	},
+	-- Configure LSP to include NeoVim APIs.
+	{
+		"folke/lazydev.nvim",
+		ft = "lua",
+		opts = {
+			library = {
+				{ path = "luvit-meta/library", words = { "vim%.uv" } },
+			},
+		},
+		dependencies = {
+			"Bilal2453/luvit-meta",
+			lazy = true,
+		},
+	},
 
 	-- mason - manage LSP servers, linters, and formatters
 	"williamboman/mason.nvim",
