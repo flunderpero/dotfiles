@@ -15,10 +15,10 @@ copilot.setup({
 	},
 	suggestion = {
 		enabled = true,
-		auto_trigger = true,
+		auto_trigger = false,
 		keymap = {
 			accept = "<C-y>",
-			accept_word = false,
+			accept_word = "<C-p>",
 			accept_line = false,
 			next = "<C-j>",
 			prev = "<C-k>",
@@ -26,3 +26,6 @@ copilot.setup({
 		},
 	},
 })
+
+-- Toggle Copilot.
+vim.keymap.set("n", "<leader>cp", ":Copilot! toggle<CR>", { noremap = true, silent = true })
