@@ -131,6 +131,10 @@ export NVM_DIR="$HOME/.nvm"
     && . "$HOMEBREW_HOME/opt/nvm/etc/bash_completion.d/nvm"
 nvm use --silent 22
 
+# pnpm
+export PNPM_HOME="/Users/pero/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+
 # Bun
 [ -s "/Users/pero/.bun/_bun" ] && source "/Users/pero/.bun/_bun"
 export BUN_INSTALL="$HOME/.bun"
