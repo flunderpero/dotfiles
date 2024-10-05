@@ -28,7 +28,8 @@ mason_lspconfig.setup({
 		"tailwindcss",
         "openscad_lsp",
 		"lua_ls",
-        "gopls"
+        "gopls",
+        "golangci_lint_ls",
 	},
 })
 

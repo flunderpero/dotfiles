@@ -76,6 +76,10 @@ for _, server in ipairs({ "html", "yamlls", "pyright", "lua_ls", "gopls" }) do
 	})
 end
 
+lspconfig.golangci_lint_ls.setup {
+	filetypes = {'go','gomod'}
+}
+
 lspconfig.cssls.setup({
 	capabilities = capabilities,
 	settings = {
