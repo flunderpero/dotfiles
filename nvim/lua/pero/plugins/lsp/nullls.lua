@@ -64,8 +64,8 @@ null_ls.setup({
 		vim.keymap.set("n", "<leader>pr", function()
 			vim.lsp.buf.format({
 				filter = function(client)
-					-- Never format with tsserver, we use prettier.
-					return client.name ~= "tsserver"
+					-- Never format with ts_ls, we use prettier.
+					return client.name ~= "ts_ls"
 				end,
 			})
 		end, {

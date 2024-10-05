@@ -107,7 +107,7 @@ vim.api.nvim_command("autocmd FileType openscad setlocal commentstring=//\\ %s")
 lspconfig.openscad_lsp.setup({})
 
 -- TypeScript
-lspconfig.tsserver.setup{
+lspconfig.ts_ls.setup{
     root_patterns = { ".git" },
     init_options = {
         maxTsServerMemory = 10000,
