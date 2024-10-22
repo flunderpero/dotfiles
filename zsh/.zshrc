@@ -124,6 +124,10 @@ eval "$(pyenv init -)"
 eval "$(pyenv init --path)"
 export PYTHONIOENCODING="utf8"
 
+# Go
+export GOPATH="$HOME/go"
+export PATH="$PATH:$GOPATH/bin"
+
 # Node Version Manager (nvm)
 export NVM_DIR="$HOME/.nvm"
 [ -s "$HOMEBREW_HOME/opt/nvm/nvm.sh" ] && . "$HOMEBREW_HOME/opt/nvm/nvm.sh"
