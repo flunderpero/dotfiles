@@ -55,6 +55,8 @@ require("lazy").setup({
 			lazy = true,
 		},
 	},
+    -- Justfile
+    "NoahTheDuke/vim-just",
 
 	-- mason - manage LSP servers, linters, and formatters
 	"williamboman/mason.nvim",
