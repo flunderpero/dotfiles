@@ -58,7 +58,7 @@ vim.api.nvim_create_autocmd("FileType", {
 -- Parse the stacktrace in the floaterm buffer and populate the quickfix list.
 function floaterm_parse_stacktrace_and_populate_quickfix()
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
-	local buffer_lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+	local buffer_lines = vim.api.nvim_buf_get_lines(0, cursor_pos[1], -1, false)
 	local pattern = "([%w%._/-]+):?(%d*):?(%d*)"
 	local qf_list = {}
 
