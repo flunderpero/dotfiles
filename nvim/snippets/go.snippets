@@ -1,0 +1,25 @@
+snippet errnil
+	if err != nil {
+		${0:return err}
+	}
+
+snippet iferr
+	if ${1}, err := ${2}; err != nil {
+		${0:return err}
+	}
+
+snippet ifok
+	if ${1}, ok := ${2}; ok {
+		${0}
+	}
+
+snippet ifnok
+	if ${1}, ok := ${2}; !ok {
+		${0}
+	}
+
+snippet d
+	fmt.Printf("[DEBUG] %v\n", ${1:val})
+
+snippet di
+	fmt.Printf("[DEBUG] ${1:var}: %v\n", $1)

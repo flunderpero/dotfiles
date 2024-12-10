@@ -4,11 +4,6 @@ if not status then
 end
 
 snippy.setup({
+    enable_auto = false,
 	snippet_dirs = "~/.config/nvim/snippets",
-	mappings = {
-		is = {
-			["<Tab>"] = "expand_or_advance",
-			["<S-Tab>"] = "previous",
-		},
-	},
 })
