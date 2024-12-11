@@ -28,6 +28,7 @@ qt.setup({
 				return playwright.imports_from_playwright(bufnr, "playwright")
 			end,
 		}),
+        require("quicktest.adapters.golang"),
 	},
 	default_win_mode = "popup",
 	use_baleia = false,
