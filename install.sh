@@ -4,21 +4,8 @@ set -e
 dotfiles=$(realpath $(dirname $0))
 
 # zsh
-[ -d ~/.oh-my-zsh ] || \
-    curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
 rm -f ~/.zshrc
-rm -f ~/.p10k.zsh
 ln -s $dotfiles/zsh/.zshrc ~/
-ln -s $dotfiles/zsh/.p10k.zsh ~/
-[ -d ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ] || \
-    git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git \
-    ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-[ -d ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions ] || \
-    git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions \
-    ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-[ -d ~/.oh-my-zsh/custom/themes/powerlevel10k ] || \
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
-    ~/.oh-my-zsh/custom/themes/powerlevel10k
 
 mkdir -p ~/.config
 rm -f ~/.config/kitty
