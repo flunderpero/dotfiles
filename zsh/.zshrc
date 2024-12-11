@@ -1,27 +1,13 @@
-# ---
-# Oh-my-zsh and Powerlevel10k configuration
-# ---
-
-# Enable Powerlevel10k instant prompt.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 export ZSH="$HOME/.oh-my-zsh"
-if [ -z "$SSH_CLIENT" ]; then
-    ZSH_THEME="powerlevel10k/powerlevel10k"
-fi
 HYPHEN_INSENSITIVE="true"
 DISABLE_AUTO_UPDATE="true"
 HIST_STAMPS="yyyy-mm-dd"
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS
 
-plugins=(git history-substring-search zsh-syntax-highlighting)
-
+plugins=(git history-substring-search)
 source "$ZSH/oh-my-zsh.sh"
 autoload -Uz compinit && compinit
-[ -f "$HOME/.p10k.zsh" ] && source "$HOME/.p10k.zsh"
 
 # ---
 # Configuration
@@ -32,6 +18,7 @@ autoload -Uz compinit && compinit
 setopt nohup
 
 # Aliases
+alias ls="ls -G --color"
 alias ll="ls -lagh"
 alias ssh="ssh -A -X"
 alias dps="docker ps"
@@ -62,9 +49,10 @@ git config --global alias.cm commit
 git config --global alias.st status
 git config --global alias.br branch
 
+local prompt_ret_status="%(?:%{$fg_bold[green]%}» :%{$fg_bold[red]%}» )"
 if [ -n "$SSH_CLIENT" ] ; then
     # If we are in a remote session, we stop here.
-    export PROMPT='%{$fg[cyan]%}%c ${ret_status}%{$reset_color%}'
+    export PROMPT='%{$fg[cyan]%}%c ${prompt_ret_status}%{$reset_color%}'
     export RPROMPT='[%{$fg[yellow]%}${HOSTNAME}%{$fg[blue]%}]%{$reset_color%}'
     [ -f "$HOME/.zprofile" ] && source "$HOME/.zprofile"
     echo "I am a remote machine."
@@ -74,6 +62,8 @@ fi
 # ---
 # Personal workstation settings
 # ---
+export PROMPT='%{$fg[cyan]%}%c'$'\n''${prompt_ret_status}%{$reset_color%}'
+export RPROMPT='%*'
 
 export LANG=en_US.UTF-8
 export SSH_KEY_PATH="~/.ssh/id_rsa"
@@ -104,14 +94,35 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 # (https://gist.github.com/skyzyx/3438280b18e4f7c490db8a2a2ca0b9da)
 source $HOME/.dotfiles/zsh/.zsh_gnu
 
+# Sourcing command output - like many tools require us to do these days - can be
+# slow, so use this function to cache the output.
+# If the temporary file exists, it will be sourced immediately. If not, it will
+# be created first by running the given command (`$2..$x`).
+# After that the command will be run in the background and the temporary file
+# will be created again, so that on the next run, we will have the newest 
+# completions.
+#
+# @param $1 temporary file
+# @param $2.. the command to run
+function source_cached_command() {
+    tmp_file=$1
+    shift
+    if [ ! -e "$tmp_file" ]; then
+        eval "$@" > $tmp_file
+    fi
+    source $tmp_file
+    # The `()` around the command execute it in a sub-shell, so we don't
+    # see the process messages.
+    ("$@" > $tmp_file &)
+}
 # Google Cloud SDK
 source "$HOME/src/google-cloud-sdk/path.zsh.inc"
 source "$HOME/src/google-cloud-sdk/completion.zsh.inc"
-source <(kubectl completion zsh)
+source_cached_command "/tmp/kubectl_completion" kubectl completion zsh
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 # Stern autocompletion
-source <(stern --completion=zsh)
+source_cached_command "/tmp/stern_completion" stern --completion=zsh
 
 # Java and Android Studio
 export JAVA_HOME="$HOMEBREW_HOME/opt/openjdk"
@@ -119,9 +130,7 @@ export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH="$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools"
 
 # Python
-pyenv global 3.11.1
-eval "$(pyenv init -)"
-eval "$(pyenv init --path)"
+source_cached_command "/tmp/pyenv_init" pyenv init -
 export PYTHONIOENCODING="utf8"
 
 # Go
@@ -129,18 +138,31 @@ export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin"
 
 # Node Version Manager (nvm)
+# Since nvm has such a high startup time (> 0.5s) we lazy load it.
 export NVM_DIR="$HOME/.nvm"
-[ -s "$HOMEBREW_HOME/opt/nvm/nvm.sh" ] && . "$HOMEBREW_HOME/opt/nvm/nvm.sh"
-[ -s "$HOMEBREW_HOME/opt/nvm/etc/bash_completion.d/nvm" ] \
-    && . "$HOMEBREW_HOME/opt/nvm/etc/bash_completion.d/nvm"
-nvm use --silent 22
+function load_nvm() {
+    if [ -z "${_nvm_loaded}" ]; then
+        [ -s "$HOMEBREW_HOME/opt/nvm/nvm.sh" ] && . "$HOMEBREW_HOME/opt/nvm/nvm.sh"
+        [ -s "$HOMEBREW_HOME/opt/nvm/etc/bash_completion.d/nvm" ] \
+            && . "$HOMEBREW_HOME/opt/nvm/etc/bash_completion.d/nvm"
+        nvm use --silent 22
+        _nvm_loaded="1"
+    fi
+}
+function nvm() {
+    load_nvm
+    nvm "$@"
+}
+for cmd in node prettier tsc yarn pnpm; do
+    alias "$cmd"="load_nvm && $cmd"
+done
 
 # pnpm
-export PNPM_HOME="/Users/pero/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
 # Bun
-[ -s "/Users/pero/.bun/_bun" ] && source "/Users/pero/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
@@ -153,5 +175,5 @@ alias vi="nvim"
 alias vim="nvim"
 
 # Configure our main dev project at the time.
-CLING_HOME="$HOME/src/pero/cling-main"
+CLING_HOME="$HOME/src/$USER/cling-main"
 [ -f "$CLING_HOME/.zprofile" ] && source "$CLING_HOME/.zprofile"
