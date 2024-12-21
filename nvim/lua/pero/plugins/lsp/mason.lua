@@ -30,6 +30,7 @@ mason_lspconfig.setup({
 		"lua_ls",
         "gopls",
         "golangci_lint_ls",
+        "terraformls",
         "asm_lsp",
 	},
 })

@@ -27,6 +27,9 @@ null_ls.setup({
 		formatting.stylua,
 		formatting.yapf,
 		formatting.stylelint,
+		formatting.terraform_fmt.with({
+			command = "tofu",
+		}),
 		-- We can use `eslint_d` if we don't use Yarn PnP.
 		diagnostics.eslint_d.with({
 			env = {

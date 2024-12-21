@@ -70,7 +70,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 local capabilities = cmp_nvim_lsp.default_capabilities()
 
 -- Servers that don't need any special configuration.
-for _, server in ipairs({ "html", "yamlls", "pyright", "lua_ls", "gopls", "asm_lsp" }) do
+for _, server in ipairs({ "html", "yamlls", "pyright", "lua_ls", "gopls", "asm_lsp", "terraformls" }) do
 	lspconfig[server].setup({
 		capabilities = capabilities,
 	})
