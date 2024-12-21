@@ -162,9 +162,10 @@ export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin"
 
 # Node Version Manager (nvm)
-# Since nvm has such a high startup time (> 0.5s) we lazy load it.
+# Since nvm has such a high startup time (> 0.5s) we do not load it by default.
+# You have to run `use_node` to set up the environment.
 export NVM_DIR="$HOME/.nvm"
-function load_nvm() {
+function use_node() {
     if [ -z "${_nvm_loaded}" ]; then
         [ -s "$HOMEBREW_HOME/opt/nvm/nvm.sh" ] && . "$HOMEBREW_HOME/opt/nvm/nvm.sh"
         [ -s "$HOMEBREW_HOME/opt/nvm/etc/bash_completion.d/nvm" ] \
@@ -173,13 +174,6 @@ function load_nvm() {
         _nvm_loaded="1"
     fi
 }
-function nvm() {
-    load_nvm
-    nvm "$@"
-}
-for cmd in node prettier tsc yarn pnpm; do
-    alias "$cmd"="load_nvm && $cmd"
-done
 
 # pnpm
 export PNPM_HOME="$HOME/Library/pnpm"
