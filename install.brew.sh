@@ -12,9 +12,9 @@ export HOMEBREW_HOME="/usr/local"
 eval "$($HOMEBREW_HOME/bin/brew shellenv)"
 
 # Install essential brew packages.
-brew install cask git gnupg go graphicsmagick jq kustomize neovim nvm openjdk openssl \
-    pyenv redis stern watch wget yarn \
-    htop kitty keepassxc htop trash vimr 
+brew install bat cask fd fzf git gnupg go graphicsmagick jq kustomize neovim nvm openjdk openssl \
+    pyenv redis rg stern watch wget yarn \
+    htop kitty keepassxc htop trash 
 
 # Use GNU commands where possible.
 brew install coreutils gawk grep gnu-sed gnu-tar make findutils xz

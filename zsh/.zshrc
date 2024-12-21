@@ -1,6 +1,7 @@
 # ---
 # Basics for both, local and remote machines.
 # ---
+
 autoload -Uz compinit && compinit
 
 # Do not kill background-tasks when exiting.
@@ -54,6 +55,7 @@ export RPROMPT='%{'$'\e[1A''%}%F{blue}%*%f%{'$'\e[1B''%}'
 # ---
 # ZSH widgets
 # ---
+
 # ^P copy the output of the last command
 zmodload -i zsh/parameter
 insert-last-command-output() {
@@ -64,6 +66,8 @@ bindkey "^P" insert-last-command-output
 
 # ^R will start searching with what's already typed on the current line.
 # (Adapted from https://unix.stackexchange.com/a/588742)
+# We will use `fzf` to search the history eventually (see further down)
+# but this is still good for SSH sessions.
 history-incremental-search-backward() {
     local saved_BUFFER=$BUFFER
     BUFFER=
@@ -76,6 +80,7 @@ bindkey "^F" history-incremental-search-forward
 # ---
 # Remote SSH session
 # ---
+
 if [ -n "$SSH_CLIENT" ] ; then
     # If this is a SSH session, we stop here.
     export RPROMPT='%{'$'\e[1A''%}%* %F{yellow}%m%f%{'$'\e[1B''%}'
@@ -137,6 +142,28 @@ function source_cached_command() {
     # The `()` around the command execute it in a sub-shell, so we don't
     # see the process messages.
     ("$@" > $tmp_file &)
+}
+
+# fzf
+export FZF_CTRL_T_OPTS="
+    --tmux
+    --preview 'bat -n --color=always {}'
+    --bind 'ctrl-p:change-preview-window(50%|hidden|)'
+    --bind 'ctrl-h:reload(fd --type f --follow --strip-cwd-prefix --hidden --no-ignore --exclude .git)'
+    --header 'CTRL-H: Show hidden files'"
+export FZF_CTRL_R_OPTS="
+    --tmux
+    --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+    --header 'CTRL-Y: Copy into clipboard'"
+export FZF_COMPLETION_OPTS='--border=rounded --info=default --height=90%'
+export FZF_DEFAULT_COMMAND='fd --type f --follow --strip-cwd-prefix --hidden --exclude .git --exclude node_modules'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+source <(fzf --zsh)
+_fzf_compgen_path() {
+  fd --follow --hidden --exclude .git --exclude node_modules . "$1"
+}
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude .git --exclude node_modules . "$1"
 }
 
 # Google Cloud SDK
