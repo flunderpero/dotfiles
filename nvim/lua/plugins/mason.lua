@@ -8,7 +8,6 @@ local function config()
             "rust_analyzer",
             "html",
             "cssls",
-            "pyright",
             "yamlls",
             "tailwindcss",
             "openscad_lsp",
@@ -17,6 +16,7 @@ local function config()
             "golangci_lint_ls",
             "terraformls",
             "asm_lsp",
+            "pylsp",
         },
     })
     require("mason-null-ls").setup({
@@ -25,8 +25,6 @@ local function config()
             "stylua",
             "taplo",
             "yapf",
-            "pylint",
-            "mypy",
             "eslint_d",
             "stylelint",
         },

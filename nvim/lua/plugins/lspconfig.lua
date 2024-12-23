@@ -64,14 +64,34 @@ local function config()
 	local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 	-- Servers that don't need any special configuration.
-	for _, server in ipairs({ "html", "yamlls", "pyright", "lua_ls", "gopls", "asm_lsp", "terraformls" }) do
+	for _, server in ipairs({ "html", "yamlls", "ruff", "lua_ls", "gopls", "asm_lsp", "terraformls" }) do
 		lspconfig[server].setup({
 			capabilities = capabilities,
 		})
 	end
 
+	lspconfig.pylsp.setup({
+		capabilities = capabilities,
+		settings = {
+			pylsp = {
+				plugins = {
+					rope_autoimport = { enabled = true },
+                    -- We use `ruff` for linting, so we disable all linters.
+					autopep8 = { enabled = false },
+					flake8 = { enabled = false },
+					mccabe = { enabled = false },
+					pycodestyle = { enabled = false },
+					pydocstyle = { enabled = false },
+					pyflakes = { enabled = false },
+					pylint = { enabled = false },
+					yapf = { enabled = false },
+				},
+			},
+		},
+	})
+
 	lspconfig.golangci_lint_ls.setup({
-        capabilities = capabilities,
+		capabilities = capabilities,
 		filetypes = { "go", "gomod" },
 	})
 

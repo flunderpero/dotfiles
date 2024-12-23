@@ -5,3 +5,7 @@ Resize
 resizes
 stacktrace
 quickfix
+pylsp
+pylint
+mypy
+flake8

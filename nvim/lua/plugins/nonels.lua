@@ -51,7 +51,6 @@ local function config()
 					return has_eslint_config(utils) and utils.root_has_file(".pnp.cjs")
 				end,
 			}),
-			diagnostics.pylint,
 			diagnostics.mypy,
 			diagnostics.stylelint,
 		},
