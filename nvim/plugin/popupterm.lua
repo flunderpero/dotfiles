@@ -41,8 +41,8 @@ local function toggle_terminal()
 		state.popup = create_popup_window({ buf = state.popup.buf })
 		if vim.bo[state.popup.buf].buftype ~= "terminal" then
 			vim.cmd.terminal()
-            vim.cmd.startinsert()
 		end
+        vim.cmd.startinsert()
 	else
 		vim.api.nvim_win_hide(state.popup.win)
 	end

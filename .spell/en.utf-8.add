@@ -9,3 +9,4 @@ pylsp
 pylint
 mypy
 flake8
+popupterm
