@@ -65,52 +65,53 @@ vim.api.nvim_create_autocmd("FocusLost", { command = ":wa" })
 
 -- Restore the cursor position on read.
 vim.api.nvim_create_autocmd("BufReadPost", {
-    pattern = { "*" },
-    callback = function()
-        if vim.fn.filereadable(vim.fn.expand("%:p")) == 0 then
-            -- Ignore buffers not backed by a file.
-            return
-        end
-        vim.api.nvim_exec2("normal! g'\"zv", { output = false })
-    end,
+	pattern = { "*" },
+	callback = function()
+		if vim.fn.filereadable(vim.fn.expand("%:p")) == 0 then
+			-- Ignore buffers not backed by a file.
+			return
+		end
+		vim.api.nvim_exec2("normal! g'\"zv", { output = false })
+	end,
 })
 
 -- Spell checking
 vim.opt.spell = true
 vim.opt.spelllang = { "en_us" }
+vim.opt.spelloptions = "camel"
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-    callback = function()
-        -- Try to find project root (e.g., using git)
-        local project_root = vim.fn.system("git rev-parse --show-toplevel"):gsub("\n", "")
-        if vim.v.shell_error == 0 and project_root ~= "" then
-            -- Create .spell directory in project if it doesn't exist
-            local spell_dir = project_root .. "/.spell"
-            if vim.fn.isdirectory(spell_dir) == 0 then
-                vim.fn.mkdir(spell_dir, "p")
-            end
-            -- Set project-specific spellfile
-            local spellfile = spell_dir .. "/en.utf-8.add"
-            vim.opt_local.spellfile = spellfile
-        else
-            -- Fallback to global spellfile
-            vim.opt_local.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
-        end
-    end,
+	callback = function()
+		-- Try to find project root (e.g., using git)
+		local project_root = vim.fn.system("git rev-parse --show-toplevel"):gsub("\n", "")
+		if vim.v.shell_error == 0 and project_root ~= "" then
+			-- Create .spell directory in project if it doesn't exist
+			local spell_dir = project_root .. "/.spell"
+			if vim.fn.isdirectory(spell_dir) == 0 then
+				vim.fn.mkdir(spell_dir, "p")
+			end
+			-- Set project-specific spellfile
+			local spellfile = spell_dir .. "/en.utf-8.add"
+			vim.opt_local.spellfile = spellfile
+		else
+			-- Fallback to global spellfile
+			vim.opt_local.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
+		end
+	end,
 })
 
 -- We just want the tab number to appear as the title of a tab.
 function _G.simple_tabline()
-    local s = ""
-    for index = 1, vim.fn.tabpagenr("$") do
-        s = s .. "%" .. index .. "T"
-        if index == vim.fn.tabpagenr() then
-            s = s .. "%#TabLineSel#"
-        else
-            s = s .. "%#TabLine#"
-        end
-        s = s .. " " .. index .. " "
-    end
-    return s
+	local s = ""
+	for index = 1, vim.fn.tabpagenr("$") do
+		s = s .. "%" .. index .. "T"
+		if index == vim.fn.tabpagenr() then
+			s = s .. "%#TabLineSel#"
+		else
+			s = s .. "%#TabLine#"
+		end
+		s = s .. " " .. index .. " "
+	end
+	return s
 end
 
 vim.opt.showtabline = 1
@@ -118,6 +119,6 @@ vim.opt.tabline = "%!v:lua.simple_tabline()"
 
 -- Resize the window splits when the terminal window resizes.
 vim.api.nvim_create_autocmd("VimResized", {
-    pattern = "*",
-    command = "wincmd =",
+	pattern = "*",
+	command = "wincmd =",
 })
