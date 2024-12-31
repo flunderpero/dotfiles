@@ -42,6 +42,9 @@ vim.opt.hidden = true
 -- Automatically save before certain commands.
 vim.opt.autowriteall = true
 
+-- Automatically reload buffers.
+vim.opt.autoread = true
+
 -- Don't use a swap file.
 vim.opt.swapfile = false
 
