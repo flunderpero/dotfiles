@@ -23,8 +23,6 @@ local function config()
         ensure_installed = {
             "prettier",
             "stylua",
-            "taplo",
-            "yapf",
             "eslint_d",
             "stylelint",
         },
