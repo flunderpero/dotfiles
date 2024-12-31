@@ -3,6 +3,8 @@
 # ---
 
 autoload -Uz compinit && compinit
+# Enable vi mode.
+bindkey -v
 
 # Do not kill background-tasks when exiting.
 # See http://stackoverflow.com/questions/19302913/exit-zsh-but-leave-running-jobs-open
@@ -74,8 +76,10 @@ history-incremental-search-backward() {
     zle .$WIDGET -- $saved_BUFFER
 }
 zle -N history-incremental-search-backward
-zle -N history-incremental-search-forward
-bindkey "^F" history-incremental-search-forward
+
+# Rebind movement keys.
+bindkey '^b' backward-word  # instead of ALT+b or ESC+b
+bindkey '^w' forward-word   # instead of ALT+f or ESC+f
 
 # ---
 # Remote SSH session
