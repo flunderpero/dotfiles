@@ -1,6 +1,4 @@
-# ---
-# Basics for both, local and remote machines.
-# ---
+# ---------- Basics for both, local and remote machines. ----------
 
 autoload -Uz compinit && compinit
 # Enable vi mode.
@@ -30,7 +28,8 @@ alias ffprobe="ffprobe -v fatal -print_format json -show_format -show_streams"
 alias jqi="jq -R 'fromjson?' -S"
 alias jq="jq -S"
 alias pgrep="pgrep -f -l"
-# Make watch expand aliases.
+# Make watch expand aliases and preserve color output. BWT, the space at the end
+# does the trick with expanding aliases.
 # https://unix.stackexchange.com/questions/25327/watch-command-alias-expansion
 alias watch='watch --color '
 
@@ -39,11 +38,38 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS
 alias history='history -t "%Y-%m-%d"'
 
+# Directory stack (use `dirs` to get a list of the recently visited directories)
+setopt AUTO_PUSHD 
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHD_SILENT
+# Select one of the directories on the stack to jump to.
+local ccd_default_dirs
+ccd() {
+    local dir
+    dir=$(
+        (
+            dirs -p;
+            echo ${ccd_default_dirs} | tr ' ' '\n'
+        ) | sort -u | fzf
+    )
+    if [[ -n $dir ]]; then
+        cd "${dir/#\~/$HOME}"
+    fi
+}
+
 # Git aliases
 git config --global alias.co checkout
 git config --global alias.cm commit
 git config --global alias.st status
 git config --global alias.br branch
+
+# Completion
+setopt MENU_COMPLETE                                                                  
+setopt AUTO_LIST                                                                 
+setopt COMPLETE_IN_WORD
+zstyle ':completion:*' menu select
+# Colors for files and directory
+zstyle ':completion:*:*:*:*:default' list-colors ${(s.:.)LS_COLORS}
 
 # Prompt
 setopt PROMPT_SUBST
@@ -54,14 +80,12 @@ export PROMPT='%F{blue}%~%f'$'\n''${prompt_ret_status}'
 # left side prompt. (It spans two lines.)
 export RPROMPT='%{'$'\e[1A''%}%F{blue}%*%f%{'$'\e[1B''%}'
 
-# ---
-# ZSH widgets
-# ---
+# ---------- ZSH widgets ----------
 
 # ^P copy the output of the last command
 zmodload -i zsh/parameter
 insert-last-command-output() {
-  LBUFFER+="$(eval $history[$((HISTCMD-1))])"
+    LBUFFER+="$(eval $history[$((HISTCMD-1))])"
 }
 zle -N insert-last-command-output
 bindkey "^P" insert-last-command-output
@@ -76,14 +100,9 @@ history-incremental-search-backward() {
     zle .$WIDGET -- $saved_BUFFER
 }
 zle -N history-incremental-search-backward
+bindkey "^R" history-incremental-search-backward
 
-# Rebind movement keys.
-bindkey '^b' backward-word  # instead of ALT+b or ESC+b
-bindkey '^w' forward-word   # instead of ALT+f or ESC+f
-
-# ---
-# Remote SSH session
-# ---
+# ---------- Remote SSH session ----------
 
 if [ -n "$SSH_CLIENT" ] ; then
     # If this is a SSH session, we stop here.
@@ -93,9 +112,7 @@ if [ -n "$SSH_CLIENT" ] ; then
     return 0
 fi
 
-# ---
-# Personal workstation settings
-# ---
+# ---------- Personal workstation settings ----------
 
 export LANG=en_US.UTF-8
 export SSH_KEY_PATH="~/.ssh/id_rsa"
@@ -118,6 +135,11 @@ PATH="$PATH:/bin"
 PATH="$PATH:/sbin"
 PATH="$PATH:$HOME/.krew/bin"
 
+# Custom aliases
+alias top=htop
+alias vi="nvim"
+alias vim="nvim"
+
 # Homebrew
 eval "$($HOMEBREW_HOME/bin/brew shellenv)"
 PATH="$HOMEBREW_HOME/opt/protobuf@3/bin:$PATH"
@@ -135,9 +157,9 @@ source $HOME/.dotfiles/zsh/.zsh_gnu
 # completions.
 #
 # @param $1 temporary file
-# @param $2.. the command to run
+# @param $2.. the command and its parameters to run
 function source_cached_command() {
-    tmp_file=$1
+    local tmp_file=$1
     shift
     if [ ! -e "$tmp_file" ]; then
         eval "$@" > $tmp_file
@@ -169,6 +191,18 @@ _fzf_compgen_path() {
 _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude .git --exclude node_modules . "$1"
 }
+
+# Default directories for our `ccd` command (see above).
+ccd_default_dirs=(
+    "~/Downloads"
+    "~/src"
+    "~/src/pero"
+    "~/src/pero/cling-main"
+    "~/src/pero/klar"
+    "~/.dotfiles"
+)
+
+# ---------- Languages and tools ----------
 
 # Google Cloud SDK
 source "$HOME/src/google-cloud-sdk/path.zsh.inc"
@@ -218,11 +252,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # Rust
 export PATH="$PATH:$HOME/.cargo/bin"
 
-# Custom aliases
-alias top=htop
-alias vi="nvim"
-alias vim="nvim"
+# ---------- Configure our main dev project at the time. ----------
 
-# Configure our main dev project at the time.
-CLING_HOME="$HOME/src/$USER/cling-main"
+CLING_HOME="$HOME/src/pero/cling-main"
 [ -f "$CLING_HOME/.zprofile" ] && source "$CLING_HOME/.zprofile"
