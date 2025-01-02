@@ -43,7 +43,7 @@ setopt AUTO_PUSHD
 setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_SILENT
 # Select one of the directories on the stack to jump to.
-local ccd_default_dirs
+local ccd_default_dirs=()
 ccd() {
     local dir
     dir=$(
@@ -228,17 +228,22 @@ export PATH="$PATH:$GOPATH/bin"
 
 # Node Version Manager (nvm)
 # Since nvm has such a high startup time (> 0.5s) we do not load it by default.
-# You have to run `use_node` to set up the environment.
+# You have to run `use_nvm` if you want to change node versions.
 export NVM_DIR="$HOME/.nvm"
-function use_node() {
-    if [ -z "${_nvm_loaded}" ]; then
+export NODE_VERSION="22.2.0"
+local use_nvm_loaded=
+function use_nvm() {
+    if [ -z "${use_nvm_loaded}" ]; then
         [ -s "$HOMEBREW_HOME/opt/nvm/nvm.sh" ] && . "$HOMEBREW_HOME/opt/nvm/nvm.sh"
         [ -s "$HOMEBREW_HOME/opt/nvm/etc/bash_completion.d/nvm" ] \
             && . "$HOMEBREW_HOME/opt/nvm/etc/bash_completion.d/nvm"
-        nvm use --silent 22
-        _nvm_loaded="1"
+        nvm use --silent $NODE_VERSION
+        use_nvm_loaded="1"
     fi
 }
+# Because we don't want to load nvm we hard-code the PATH to the node version we
+# usually want.
+PATH=$PATH:$HOME/.nvm/versions/node/v$NODE_VERSION/bin
 
 # pnpm
 export PNPM_HOME="$HOME/Library/pnpm"
