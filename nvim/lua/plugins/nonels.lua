@@ -23,7 +23,6 @@ local function config()
 		sources = {
 			formatting.prettier,
 			formatting.stylua,
-			formatting.yapf,
 			formatting.stylelint,
 			formatting.terraform_fmt.with({
 				command = "tofu",
@@ -51,7 +50,6 @@ local function config()
 					return has_eslint_config(utils) and utils.root_has_file(".pnp.cjs")
 				end,
 			}),
-			diagnostics.mypy,
 			diagnostics.stylelint,
 		},
 		on_attach = function(_, bufnr)

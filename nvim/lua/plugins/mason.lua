@@ -16,7 +16,9 @@ local function config()
             "golangci_lint_ls",
             "terraformls",
             "asm_lsp",
-            "pylsp",
+            "ruff",
+            "pyright",
+            "marksman",
         },
     })
     require("mason-null-ls").setup({
