@@ -6,8 +6,13 @@
 [user]
 	email = pero@cling.com
     name = Peter Romianowski
+	signingkey = /Users/pero/.ssh/id_rsa_pero_flunder_io_github.pub
 [init]
     defaultBranch = main
 [rebase]
 	autosquash = true
     autostash = true
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
