@@ -1,6 +1,6 @@
 -- Run `tsc` and populate the quickfix list.
 function _G.pr_lint_tsc()
-	local has_bun_lock = vim.fn.filereadable("bun.lock")
+	local has_bun_lock = vim.fn.filereadable("bun.lock") == 1
 	local prg = has_bun_lock and "bun" or "yarn"
 	vim.api.nvim_command("wa")
 	vim.api.nvim_command("compiler tsc")
@@ -20,7 +20,7 @@ end
 function _G.pr_lint_eslint()
 	vim.api.nvim_command("wa")
 	vim.api.nvim_command("compiler eslint")
-	local has_bun_lock = vim.fn.filereadable("bun.lock")
+	local has_bun_lock = vim.fn.filereadable("bun.lock") == 1
 	local prg = has_bun_lock and "bun" or "yarn"
 	vim.api.nvim_command(
 		"set makeprg="
