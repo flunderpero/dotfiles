@@ -131,7 +131,7 @@ end
 
 -- Write all buffers and open the terminal popup.
 vim.keymap.set("n", "<C-Space>", function()
-    vim.cmd("wa")
+    vim.cmd("wa!")
     toggle_terminal()
 end, { silent = true })
 
