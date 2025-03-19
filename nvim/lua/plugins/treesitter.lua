@@ -21,6 +21,7 @@ local function config()
 			"rust",
 			"dockerfile",
 			"gitignore",
+            "templ",
 		},
 		auto_install = true,
 		-- See https://github.com/nvim-treesitter/nvim-treesitter-textobjects

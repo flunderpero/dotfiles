@@ -13,6 +13,7 @@ local function config()
             "openscad_lsp",
             "lua_ls",
             "gopls",
+            "templ",
             "golangci_lint_ls",
             "terraformls",
             "asm_lsp",
