@@ -207,6 +207,8 @@ source "$HOME/src/google-cloud-sdk/path.zsh.inc"
 source "$HOME/src/google-cloud-sdk/completion.zsh.inc"
 source_cached_command "/tmp/kubectl_completion" kubectl completion zsh
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+# https://cloud.google.com/iap/docs/using-tcp-forwarding#increasing_the_tcp_upload_bandwidth
+export CLOUDSDK_PYTHON_SITEPACKAGES=1
 
 # Stern autocompletion
 source_cached_command "/tmp/stern_completion" stern --completion=zsh
@@ -223,6 +225,7 @@ export PYTHONIOENCODING="utf8"
 # Go
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin"
+export GOTOOLCHAIN="auto"
 
 # Node Version Manager (nvm)
 # Since nvm has such a high startup time (> 0.5s) we do not load it by default.
