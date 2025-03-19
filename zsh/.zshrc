@@ -172,13 +172,11 @@ function source_cached_command() {
 
 # fzf
 export FZF_CTRL_T_OPTS="
-    --tmux
     --preview 'bat -n --color=always {}'
     --bind 'ctrl-p:change-preview-window(50%|hidden|)'
     --bind 'ctrl-h:reload(fd --type f --follow --strip-cwd-prefix --hidden --no-ignore --exclude .git)'
     --header 'CTRL-H: Show hidden files'"
 export FZF_CTRL_R_OPTS="
-    --tmux
     --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
     --header 'CTRL-Y: Copy into clipboard'"
 export FZF_COMPLETION_OPTS='--border=rounded --info=default --height=90%'
