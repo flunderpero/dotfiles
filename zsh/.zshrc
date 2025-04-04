@@ -57,12 +57,6 @@ ccd() {
     fi
 }
 
-# Git aliases
-git config --global alias.co checkout
-git config --global alias.cm commit
-git config --global alias.st status
-git config --global alias.br branch
-
 # Completion
 setopt MENU_COMPLETE                                                                  
 setopt AUTO_LIST                                                                 
@@ -144,9 +138,13 @@ alias vim="nvim"
 eval "$($HOMEBREW_HOME/bin/brew shellenv)"
 PATH="$HOMEBREW_HOME/opt/protobuf@3/bin:$PATH"
 export HOMEBREW_NO_AUTO_UPDATE=1
-# We want to use the GNU versions of most commands.
+
+# Prefer the GNU versions over the MacOS built-ins.
 # (https://gist.github.com/skyzyx/3438280b18e4f7c490db8a2a2ca0b9da)
-source $HOME/.dotfiles/zsh/.zsh_gnu
+for bindir in "${HOMEBREW_HOME}/opt/"*"/libexec/gnubin"; do export PATH=$bindir:$PATH; done
+for bindir in "${HOMEBREW_HOME}/opt/"*"/bin"; do export PATH=$bindir:$PATH; done
+for mandir in "${HOMEBREW_HOME}/opt/"*"/libexec/gnuman"; do export MANPATH=$mandir:$MANPATH; done
+for mandir in "${HOMEBREW_HOME}/opt/"*"/share/man/man1"; do export MANPATH=$mandir:$MANPATH; done
 
 # Sourcing command output - like many tools require us to do these days - can be
 # slow, so use this function to cache the output.
@@ -261,4 +259,4 @@ export PATH="$PATH:$HOME/.cargo/bin"
 # ---------- Configure our main dev project at the time. ----------
 
 CLING_HOME="$HOME/src/pero/cling-main"
-[ -f "$CLING_HOME/.zprofile" ] && source "$CLING_HOME/.zprofile"
+[ -f "$CLING_HOME/.profile" ] && source "$CLING_HOME/.profile"
