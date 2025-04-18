@@ -1,3 +1,7 @@
+# [[ VI mode ]]
+
+set -o vi
+
 # [[ History ]]
 
 HISTCONTROL=ignoreboth:erasedups
@@ -5,8 +9,8 @@ HISTSIZE=10000
 HISTFILESIZE=10000
 shopt -s histappend  
 # Arrow up/down to search history for commands matching what's typed.
-bind '"\e[A": history-search-backward'
-bind '"\e[B": history-search-forward'
+bind '"\e[A": history-substring-search-backward'
+bind '"\e[B": history-substring-search-forward'
 
 # [[ Completion ]]
 
