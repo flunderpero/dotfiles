@@ -74,7 +74,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 			-- Ignore buffers not backed by a file.
 			return
 		end
-		vim.api.nvim_exec2("normal! g'\"zv", { output = false })
+		pcall(vim.api.nvim_exec2, "normal! g'\"zv", { output = false })
 	end,
 })
 
