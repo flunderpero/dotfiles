@@ -13,6 +13,8 @@ alias kgd="kg deployment"
 alias kgdw="watch -n 1 kubectl get deployments"
 alias kl="kubectl logs --tail 100 -f"
 alias ffprobe="ffprobe -v fatal -print_format json -show_format -show_streams"
+# Somehow python3 is not automatically aliased to python anymore.
+alias python="python3"
 # Ignore invalid lines in JSON.
 alias jqi="jq -R 'fromjson?' -S"
 alias jq="jq -S"
