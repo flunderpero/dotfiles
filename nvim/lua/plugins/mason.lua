@@ -3,31 +3,28 @@
 
 local function config()
     require("mason").setup()
-    require("mason-lspconfig").setup({
+    require("mason-tool-installer").setup({
         ensure_installed = {
-            "rust_analyzer",
-            "html",
-            "cssls",
-            "yamlls",
-            "tailwindcss",
-            "openscad_lsp",
-            "lua_ls",
+            "asm-lsp",
+            "css-lsp",
+            "golangci-lint-langserver",
             "gopls",
-            "templ",
-            "golangci_lint_ls",
-            "terraformls",
-            "asm_lsp",
-            "ruff",
-            "pyright",
+            "html-lsp",
+            "lua-language-server",
             "marksman",
-        },
-    })
-    require("mason-null-ls").setup({
-        ensure_installed = {
-            "prettier",
-            "stylua",
+            "openscad-lsp",
+            "pyright",
+            "ruff",
+            "rust-analyzer",
+            "tailwindcss-language-server",
+            "templ",
+            "terraform-ls",
+            "yaml-language-server",
+
             "eslint_d",
+            "prettier",
             "stylelint",
+            "stylua",
         },
     })
 end
@@ -37,8 +34,7 @@ return {
         "williamboman/mason.nvim",
         config = config,
         dependencies = {
-            "williamboman/mason-lspconfig.nvim",
-            "jayp0521/mason-null-ls.nvim",
+            "WhoIsSethDaniel/mason-tool-installer.nvim",
         },
     },
 }
