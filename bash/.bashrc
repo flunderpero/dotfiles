@@ -58,8 +58,8 @@ if [ -n "$SSH_CLIENT" ] ; then
     __rprompt() {
         hostname
     }
-    [ -f "$HOME/.bash_profile" ] && source "$HOME/.bash_profile"
-    echo "I am a remote machine."
+    [ -f "$HOME/.bash_profile" ] && ! grep -q ".bashrc" "$HOME/.bash_profile" && source "$HOME/.bash_profile"
+    [[ $- == *i* ]] && echo "I am a remote machine."
     return 0
 fi
 
