@@ -34,6 +34,11 @@ local function config()
 					return false
 				end,
 			}),
+			require("quicktest.adapters.pytest")({
+                additional_args = function()
+                    return { "-vv" }
+                end,
+            }),
 			require("quicktest.adapters.golang")({
 				additional_args = function()
 					-- Don't cache tests.
