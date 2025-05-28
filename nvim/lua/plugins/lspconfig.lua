@@ -67,7 +67,6 @@ local function config()
     -- Servers that don't need any special configuration.
     for _, server in ipairs({
         "html",
-        "yamlls",
         "ruff",
         "pyright",
         "lua_ls",
@@ -81,6 +80,23 @@ local function config()
             capabilities = capabilities,
         })
     end
+
+	require("lspconfig").yamlls.setup({
+		settings = {
+			yaml = {
+				schemas = {
+					kubernetes = "*_pod.yaml",
+					["http://json.schemastore.org/github-workflow"] = ".github/workflows/*",
+					["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
+					["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/**/*.{yml,yaml}",
+					["http://json.schemastore.org/prettierrc"] = ".prettierrc.{yml,yaml}",
+					["http://json.schemastore.org/kustomization"] = "kustomization.{yml,yaml}",
+					["http://json.schemastore.org/chart"] = "Chart.{yml,yaml}",
+					["http://json.schemastore.org/circleciconfig"] = ".circleci/**/*.{yml,yaml}",
+				},
+			},
+		},
+	})
 
     lspconfig.golangci_lint_ls.setup({
         capabilities = capabilities,
