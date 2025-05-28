@@ -49,8 +49,9 @@ local function config()
             vim.keymap.set("n", "<leader>ca", function()
                 vim.lsp.buf.code_action({
                     filter = function(action)
-                        -- Remove the pesky "Move to new file" action.
-                        return action.kind ~= "refactor.move"
+						-- Remove those pesky "Move to new file" (TS) and
+						-- "Browse gopls feature documentation" (Go) actions.
+						return action.kind ~= "refactor.move" and action.kind ~= "gopls.doc.features"
                     end,
                 })
             end, opts)
