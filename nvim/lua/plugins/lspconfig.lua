@@ -102,8 +102,15 @@ local function config()
         capabilities = capabilities,
         filetypes = { "go", "gomod" },
         init_options = {
-            -- todo: Detect whether there is a go_tools.mod.
-            command = { "go", "tool", "-modfile", "go_tools.mod", "golangci-lint", "run", "--out-format", "json" },
+			command = {
+				"go",
+				"tool",
+				"golangci-lint",
+				"run",
+				"--output.json.path=stdout",
+				"--show-stats=false",
+				"--issues-exit-code=1",
+			},
         },
     })
 
