@@ -36,7 +36,7 @@ local function config()
 			}),
 			require("quicktest.adapters.pytest")({
                 additional_args = function()
-                    return { "-vv" }
+                    return { "-vv", "-s" }
                 end,
             }),
 			require("quicktest.adapters.golang")({
