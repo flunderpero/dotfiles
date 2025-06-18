@@ -19,6 +19,7 @@ local function config()
             "tailwindcss-language-server",
             "templ",
             "terraform-ls",
+            "typescript-language-server",
             "yaml-language-server",
 
             "eslint_d",
