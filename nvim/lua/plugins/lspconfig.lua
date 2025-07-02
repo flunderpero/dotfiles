@@ -49,9 +49,9 @@ local function config()
             vim.keymap.set("n", "<leader>ca", function()
                 vim.lsp.buf.code_action({
                     filter = function(action)
-						-- Remove those pesky "Move to new file" (TS) and
-						-- "Browse gopls feature documentation" (Go) actions.
-						return action.kind ~= "refactor.move" and action.kind ~= "gopls.doc.features"
+                        -- Remove those pesky "Move to new file" (TS) and
+                        -- "Browse gopls feature documentation" (Go) actions.
+                        return action.kind ~= "refactor.move" and action.kind ~= "gopls.doc.features"
                     end,
                 })
             end, opts)
@@ -70,7 +70,7 @@ local function config()
         "ruff",
         "pyright",
         "lua_ls",
-		"gopls",
+        "gopls",
         "templ",
         "asm_lsp",
         "terraformls",
@@ -81,37 +81,60 @@ local function config()
         })
     end
 
-	require("lspconfig").yamlls.setup({
-		settings = {
-			yaml = {
-				schemas = {
-					kubernetes = "*_pod.yaml",
-					["http://json.schemastore.org/github-workflow"] = ".github/workflows/*",
-					["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
-					["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/**/*.{yml,yaml}",
-					["http://json.schemastore.org/prettierrc"] = ".prettierrc.{yml,yaml}",
-					["http://json.schemastore.org/kustomization"] = "kustomization.{yml,yaml}",
-					["http://json.schemastore.org/chart"] = "Chart.{yml,yaml}",
-					["http://json.schemastore.org/circleciconfig"] = ".circleci/**/*.{yml,yaml}",
-				},
-			},
-		},
-	})
+    require("lspconfig").yamlls.setup({
+        settings = {
+            yaml = {
+                schemas = {
+                    kubernetes = "*_pod.yaml",
+                    ["http://json.schemastore.org/github-workflow"] = ".github/workflows/*",
+                    ["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
+                    ["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/**/*.{yml,yaml}",
+                    ["http://json.schemastore.org/prettierrc"] = ".prettierrc.{yml,yaml}",
+                    ["http://json.schemastore.org/kustomization"] = "kustomization.{yml,yaml}",
+                    ["http://json.schemastore.org/chart"] = "Chart.{yml,yaml}",
+                    ["http://json.schemastore.org/circleciconfig"] = ".circleci/**/*.{yml,yaml}",
+                },
+            },
+        },
+    })
+
+    -- Determine the path to the golangci-lint binary.
+    local _golangci_command = nil
+    local function golangci_command()
+        if _golangci_command ~= nil then
+            return _golangci_command
+        end
+
+        local function find_command()
+            -- Try to use `go tool golangci-lint` if it's available.
+            if vim.fn.system("go tool golangci-lint 2>/dev/null"):match("golangci%-lint") then
+                return { "go", "tool", "golangci-lint" }
+            end
+
+            -- Check for the binary in various locations.
+            local paths = { "./tools/golangci-lint", "./golangci-lint" }
+            for _, path in ipairs(paths) do
+                if vim.fn.executable(path) == 1 then
+                    return { path }
+                end
+            end
+
+            -- Fallback to $PATH.
+            return { "golangci-lint" }
+        end
+        _golangci_command = vim.list_extend(
+            find_command(),
+            { "run", "--output.json.path=stdout", "--show-stats=false", "--issues-exit-code=1" }
+        )
+        return _golangci_command
+    end
 
     lspconfig.golangci_lint_ls.setup({
         capabilities = capabilities,
         filetypes = { "go", "gomod" },
-        init_options = {
-			command = {
-				"go",
-				"tool",
-				"golangci-lint",
-				"run",
-				"--output.json.path=stdout",
-				"--show-stats=false",
-				"--issues-exit-code=1",
-			},
-        },
+        on_new_config = function(new_config)
+            new_config.init_options.command = golangci_command()
+        end,
     })
 
     lspconfig.cssls.setup({
