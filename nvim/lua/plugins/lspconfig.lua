@@ -70,7 +70,6 @@ local function config()
         "ruff",
         "pyright",
         "lua_ls",
-        "gopls",
         "templ",
         "asm_lsp",
         "terraformls",
@@ -93,6 +92,17 @@ local function config()
                     ["http://json.schemastore.org/kustomization"] = "kustomization.{yml,yaml}",
                     ["http://json.schemastore.org/chart"] = "Chart.{yml,yaml}",
                     ["http://json.schemastore.org/circleciconfig"] = ".circleci/**/*.{yml,yaml}",
+                },
+            },
+        },
+    })
+
+    lspconfig.gopls.setup({
+        capabilities = capabilities,
+        settings = {
+            gopls = {
+                analyses = {
+                    composites = false,
                 },
             },
         },
