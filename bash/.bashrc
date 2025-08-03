@@ -155,8 +155,9 @@ _fzf_compgen_dir() {
 export LANG=en_US.UTF-8
 export SSH_KEY_PATH="~/.ssh/id_rsa"
 
-# Aliases
+# Aliases and functions
 [ -f "$HOME/.bash_aliases" ] && source "$HOME/.bash_aliases"
+[ -f "$HOME/.bash_functions" ] && source "$HOME/.bash_functions"
 
 # [[ Languages and tools ]]
 

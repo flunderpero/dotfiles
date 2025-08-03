@@ -11,8 +11,10 @@ ln -s $dotfiles/zsh/.zshrc ~/
 rm -f ~/.bash_profile
 rm -f ~/.bashrc
 rm -f ~/.bash_aliases
+rm -f ~/.bash_functions
 ln -s $dotfiles/bash/.bash_profile ~/
 ln -s $dotfiles/bash/.bash_aliases ~/
+ln -s $dotfiles/bash/.bash_functions ~/
 ln -s $dotfiles/bash/.bashrc ~/
 
 mkdir -p ~/.config
