@@ -9,6 +9,7 @@ local function config()
             "css-lsp",
             "golangci-lint-langserver",
             "gopls",
+            "delve", -- Go debugger.
             "html-lsp",
             "lua-language-server",
             "marksman",
