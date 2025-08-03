@@ -58,7 +58,6 @@ local function config()
             vim.keymap.set("n", "gr", function()
                 vim.lsp.buf.references({ includeDeclaration = false })
             end, opts)
-            vim.keymap.set("n", "<leader>pr", vim.lsp.buf.format, opts)
         end,
     })
 
@@ -66,14 +65,15 @@ local function config()
 
     -- Servers that don't need any special configuration.
     for _, server in ipairs({
-        "html",
-        "ruff",
-        "pyright",
-        "lua_ls",
-        "templ",
         "asm_lsp",
-        "terraformls",
+        "html",
+        "lua_ls",
         "marksman",
+        "ocamllsp",
+        "pyright",
+        "ruff",
+        "templ",
+        "terraformls",
     }) do
         lspconfig[server].setup({
             capabilities = capabilities,

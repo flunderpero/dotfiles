@@ -181,6 +181,9 @@ export PATH="$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tool
 source_cached_command pyenv init -
 export PYTHONIOENCODING="utf8"
 
+# OCaml
+test -r '/Users/pero/.opam/opam-init/init.sh' && . '/Users/pero/.opam/opam-init/init.sh' > /dev/null 2> /dev/null || true
+
 # Go
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin"

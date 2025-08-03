@@ -12,6 +12,7 @@ local function config()
             "html-lsp",
             "lua-language-server",
             "marksman",
+            "ocaml-lsp",
             "openscad-lsp",
             "pyright",
             "ruff",
