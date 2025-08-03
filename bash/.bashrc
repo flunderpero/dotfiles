@@ -109,9 +109,6 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 # Prefer the GNU versions over the MacOS built-ins.
 # (https://gist.github.com/skyzyx/3438280b18e4f7c490db8a2a2ca0b9da)
 for bindir in "${HOMEBREW_HOME}/opt/"*"/libexec/gnubin"; do export PATH=$bindir:$PATH; done
-for bindir in "${HOMEBREW_HOME}/opt/"*"/bin"; do export PATH=$bindir:$PATH; done
-for mandir in "${HOMEBREW_HOME}/opt/"*"/libexec/gnuman"; do export MANPATH=$mandir:$MANPATH; done
-for mandir in "${HOMEBREW_HOME}/opt/"*"/share/man/man1"; do export MANPATH=$mandir:$MANPATH; done
 
 # [[ Prompt cont'd ]]
 
