@@ -94,6 +94,7 @@ local function config()
 	})
 	vim.keymap.set("n", "<leader>tc", function()
 		qt.cancel_current_run()
+        qt.close_win("popup")
 	end, {
 		desc = "[T]est [C]ancel Current Run",
 	})
