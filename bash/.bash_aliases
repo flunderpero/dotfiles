@@ -30,3 +30,4 @@ alias pm="podman"
 complete -o default -F __start_podman pm
 alias duh="ollama run deepseek-coder-v2:latest please give me the shortest but actionable and meaningful answer possible unless my question starts with 'duh': "
 alias duhtalk="ollama run deepseek-coder-v2"
+alias claude="$HOME/.claude/local/claude"
