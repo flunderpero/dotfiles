@@ -72,6 +72,7 @@ local function config()
         "ocamllsp",
         "pyright",
         "ruff",
+        "sourcekit", -- Swift
         "templ",
         "terraformls",
     }) do
@@ -80,7 +81,17 @@ local function config()
         })
     end
 
-    require("lspconfig").yamlls.setup({
+    lspconfig.sourcekit.setup({
+        capabilities = vim.tbl_extend("error", capabilities, {
+            workspace = {
+                didChangeWatchedFiles = {
+                    dynamicRegistration = true,
+                },
+            },
+        }),
+    })
+
+    lspconfig.yamlls.setup({
         settings = {
             yaml = {
                 schemas = {
