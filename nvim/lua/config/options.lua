@@ -57,6 +57,11 @@ vim.opt.fileformat = "unix"
 -- Show at least 5 lines before and after while scrolling.
 vim.opt.scrolloff = 5
 
+-- Folding
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevel = 99
+
 -- Undo
 vim.opt.undofile = true
 
